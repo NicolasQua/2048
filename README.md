@@ -9,7 +9,7 @@ Scénario : le joueur change la gravité de la grille pour déplacer les tuiles 
 
 Snake : 
 Terrain 15x15 (ajustable selon la difficulté), le joueur contrôle un serpent qui avance tout seul. Le but est de récupérer les pommes qui apparaissent sur le terrain dans le but de faire grandir le serpent. Le joueur perd lorsqu’il touche un des côtés du terrain ou bien son propre corps. 
-Difficulté : augmente avec le temps car le serpent devient de plus en plus grand et son corps occupe une très grande partie du terrain, rendant ses déplacements de plus en plus compliqué. 
+Difficulté : augmente avec le temps car le serpent devient de plus en plus grand et son corps occupe une très grande partie du terrain, rendant ses déplacements de plus en plus compliqué. Possibilité de choisir des terrain de tailles 
 Succès : récolter 10/20/30 pommes pour la 1ère fois. Récolter 10 pommes en 1 minute. Récolter 20 pommes en 3 minutes. Récolter 30 pommes en 5 minutes. Mourir avec son propre corps une fois.
 Score : nombre de pomme mangées par le serpent
 Scénario : Le joueur déplace le serpent avec les flèches directionnelles (déplacement en demi-tour interdit)
@@ -28,9 +28,16 @@ Frustration :
 
 Thomas Lechou : 
 Caractère :
-- joue à des jeux pour se détendre 
 - aime quand les jeux sont dynamiques 
 - aime quand les jeux se lancent rapidement
 - veut voir des statistiques quant-à son expérience de jeu
 Frustration : 
 - est frustré lorsqu'un lorsque c'est trop complexe
+
+Thibault ToucheAtout :
+Caractère : 
+- aime pouvoir rendre plus dur le jeu et être recompensé
+- voir plusieurs fonctionalitées 
+Frustration : 
+- lorsqu'un jeu n'est pas réglable (difficulté)
+- lorsqu'il ne comprend pas les règles 
