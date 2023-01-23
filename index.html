@@ -2,20 +2,32 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Choix du jeu</title>
     <link rel="stylesheet" href="css/style.css">
     <script type="module" src="js/script.js"></script>
+    <script type="module" src="./Snake/js/script.js"></script>
+    <script type="module" src="./Snake/js/apple.js"></script>
+    <script type="module" src="./Snake/js/snake.js"></script>
+    <script type="module" src="./Snake/js/fonctionalities.js"></script>
+
 </head>
 
 <body>
-    <div class="navbar">
-        <nav>
-            <button class="btn" type="button"> Accueil </button>
-            <h1 id="monTitre">Choix du jeu</h1>
-            <button class="btn btn-bas" type="button">Snake</a>
-            <button class="btn btn-bas" type="button">2048</button>
-        </nav>
-    </div>
+    <nav class="nav">
+        <a href="#">home</a>
+      <div class="nav__link hide">
+        <a href="#">2048</a>
+        <a href="Snake/index.html">Snake</a>
+        <a href="#">Login</a>
+      </div>
+    </nav>
+
+    <main>
+      <div class="container">
+        <home-component></home-component>
+      </div>
+    </main>
 </body>
 </html>
 
