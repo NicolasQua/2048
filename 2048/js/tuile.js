@@ -9,23 +9,5 @@ export default class Tuile {
 
         this.ligne = ligne;
         this.colonne = colonne;
-        let div = document.getElementById(index); 
-
-        let img = document.createElement("img");
-
-        
-        img.src = "./assets/images/TileEmpty.png";
-        img.width = 200;
-        img.height = 200;
-        img.draggable = "true";
-        div.img = img;
-        img.dataset.ligne = ligne;
-        img.dataset.colonne = colonne;
-        this.htmlImage = img;
-
-        
-        div.appendChild(img);
     }
-
-
 }
