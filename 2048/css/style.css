@@ -1,0 +1,36 @@
+#main {
+    background-image: url("../assets/images/Background.png");
+    border: 4px solid rgb(0, 0, 0);
+    width: 800px;
+}
+
+#infos {
+    width: 800px;
+    display: flex;
+    justify-content: space-around;
+}
+
+#grille {
+    width: 800px;
+    background-color: rgba(100, 100, 100, 0.5);
+    border: 1px;
+    border: 1px solid #999;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* Pour contraindre la hauteur des lignes */
+    grid-auto-rows: 200px;
+}
+
+
+#grille div {
+    border: 2px solid rgba(100, 100, 100, 0.5);
+    transition: 0.5s all;
+    font-size : 80px;
+    text-align: center;
+    line-height: 200px;
+} 
+
+#grille div:hover {
+    background-color: rgb(223, 223, 205);
+}
