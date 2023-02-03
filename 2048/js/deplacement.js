@@ -1,15 +1,13 @@
-export default class deplacement {
-    deplace(deplacementHauteur, deplacementHori) {
-        if(deplacementHori != 0) {
-            for (let l = 0; l < 4; l++) {
-                for (let i = 0; i < 4; i++) {
-                    
-                }
+function deplacement(deplacementHauteur, deplacementHori) {
+    if(deplacementHori != 0) {
+        for (let l = 0; l < 4; l++) {
+            for (let i = 0; i < 4; i++) {
             }
         }
-
     }
 }
+
+export {deplacement};
 
 /* deplace(direction) {
     let possible = false;

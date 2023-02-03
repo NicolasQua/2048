@@ -1,4 +1,5 @@
 import Tuile from "./tuile.js";
+import {ecouteursClavier} from "./ecouteurs.js";
 
 export default class Grille {
     constructor(l,c) {
@@ -8,6 +9,12 @@ export default class Grille {
         this.initTuiles();
     }
   
+
+    mainloop() {
+
+
+        this.mainloop();
+    }
 
 
 
@@ -26,11 +33,16 @@ export default class Grille {
             /* div.addEventListener("click", (e) => {
                 console.log("click tuile");
             }); */ 
-            console.log("ligne : " + ligne + " colonne : " + colonne + " valeur de la tuile : " + this.tabTuiles[ligne][colonne].val + " index : "+ index);
         }); 
+        let l;
+        let c;
 
-        
-        document.onkeydown = (e) => {
+
+        ecouteursClavier(l, c);
+
+        console.log(l, c);
+
+        /* document.onkeydown = (e) => {
             e = e || window.event;
             if (!lose) {
                 if (e.keyCode === 38) {
@@ -52,7 +64,7 @@ export default class Grille {
                 document.getElementById('score').innerHTML=this.score;
             }
             lose = this.checklose();
-        }
+        } */ 
 
 
     }
