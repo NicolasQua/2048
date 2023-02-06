@@ -4,26 +4,35 @@ import { deplacement } from './deplacement.js';
 
 window.onload = init;
 let grille;
-let dl = 0; let dc = 0;
-
+//let depl = [0, 0]
+let depl = ecouteursClavier();
 
 function init() {
     grille = new Grille(4, 4);
     grille.afficherTuiles();
-    dl, dc = ecouteursClavier(dl, dc);
-    console.log ("Val : " + dl, dc);
+
+   
+    //console.log ("Val : " + depl);
     requestAnimationFrame(mainloop);
 }
 
 
 function mainloop () {
-    console.log("entrée mainloop");
-    if (dl != 0 || dc != 0) {
-        deplacement(dl, dc);
-        console.log(dl, dc);
+
+    console.log ("Val : " + depl);
+    if (!arrayEquals(depl, [0, 0])) {
+        deplacement(depl);
+        console.log(depl);
         console.log("TU TE DEPLACE FADA");
-        dl = 0; dc = 0;
+        depl = [0, 0];
      }
     requestAnimationFrame(mainloop);
+}
+
+function arrayEquals(a, b) {
+    return Array.isArray(a) &&
+        Array.isArray(b) &&
+        a.length === b.length &&
+        a.every((val, index) => val === b[index]);
 }
 

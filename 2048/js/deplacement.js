@@ -1,10 +1,10 @@
-function deplacement(deplacementHauteur, deplacementHori) {
-    if(deplacementHori != 0) {
+function deplacement(depl) {
+    /* if(depl[0] != 0) {
         for (let l = 0; l < 4; l++) {
             for (let i = 0; i < 4; i++) {
             }
         }
-    }
+    } */
 }
 
 export {deplacement};
