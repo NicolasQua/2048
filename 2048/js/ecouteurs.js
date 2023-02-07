@@ -1,5 +1,6 @@
+let depl = [0, 0];
+
 function ecouteursClavier() {
-    let depl = [0, 0];
     document.onkeydown = (e) => {
         depl = [0, 0];
         e = e || window.event;
@@ -7,22 +8,19 @@ function ecouteursClavier() {
         switch(e.key) {
             case "ArrowLeft":
                 depl = [0, -1];
-                console.log ("touche left appuyé et depl = " + depl);
-                return depl;
+                break;
             case "ArrowRight":
                 depl = [0, 1];
-                return depl;
+                break;
             case "ArrowDown":
                 depl = [-1, 0];
-                return depl;
+                break;
             case "ArrowUp":
                 depl = [1, 0];
-                return depl;
+                break;
         }
-        return depl;
     }
-    depl = [0, 1];
-    return depl;
+    depl = [0, 0]
 }
 
-export {ecouteursClavier};
+export {ecouteursClavier, depl};

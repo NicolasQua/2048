@@ -1,31 +1,29 @@
 import Grille from './grille.js';
-import { ecouteursClavier } from './ecouteurs.js';
+import { ecouteursClavier, depl } from './ecouteurs.js';
 import { deplacement } from './deplacement.js';
+import { fusion } from './fusion.js';
 
 window.onload = init;
 let grille;
-//let depl = [0, 0]
-let depl = ecouteursClavier();
 
 function init() {
     grille = new Grille(4, 4);
     grille.afficherTuiles();
-
-   
-    //console.log ("Val : " + depl);
+    ecouteursClavier();
     requestAnimationFrame(mainloop);
 }
 
 
 function mainloop () {
-
-    console.log ("Val : " + depl);
     if (!arrayEquals(depl, [0, 0])) {
-        deplacement(depl);
-        console.log(depl);
-        console.log("TU TE DEPLACE FADA");
-        depl = [0, 0];
-     }
+        deplacement(depl, grille);
+        fusion(depl, grille);
+        depl[0] = 0;
+        depl[1] = 0;
+        grille.genereTuile(1);
+        grille.updateAffichage();
+        grille.checklose();
+    }
     requestAnimationFrame(mainloop);
 }
 
