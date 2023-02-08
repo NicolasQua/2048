@@ -1,4 +1,5 @@
-function fusion(depl, grille) {
+function fusion(depl, grille, verification) {
+    let possible = false;
     let deplL = depl[0];
     let deplC = depl[1]; 
     if (deplC != 0)  {
@@ -6,9 +7,12 @@ function fusion(depl, grille) {
             for (let l = 0; l < 4; l++) {
                 for (let c = 0; c < 3; c++) {
                     if (grille.tabTuiles[l][c].val == grille.tabTuiles[l][c+1].val) {
-                        grille.tabTuiles[l][c].val = grille.tabTuiles[l][c].val*2;
-                        grille.tabTuiles[l][c+1].val = 0;
-                        grille.score += grille.tabTuiles[l][c].val;
+                        if (!verification) {
+                            grille.tabTuiles[l][c].val = grille.tabTuiles[l][c].val*2;
+                            grille.tabTuiles[l][c+1].val = 0;
+                            grille.score += grille.tabTuiles[l][c].val;
+                        }
+                        possible = true;
                     }
                 }
             }
@@ -16,9 +20,12 @@ function fusion(depl, grille) {
             for (let l = 0; l < 4; l++) {
                 for (let c = 3; c != 0; c--) {
                     if (grille.tabTuiles[l][c].val == grille.tabTuiles[l][c-1].val) {
-                        grille.tabTuiles[l][c].val = grille.tabTuiles[l][c].val*2;
-                        grille.tabTuiles[l][c-1].val = 0;
-                        grille.score += grille.tabTuiles[l][c].val;
+                        if (!verification) {
+                            grille.tabTuiles[l][c].val = grille.tabTuiles[l][c].val*2;
+                            grille.tabTuiles[l][c-1].val = 0;
+                            grille.score += grille.tabTuiles[l][c].val;
+                        }
+                        possible = true;
                     }
                 }
             }
@@ -29,9 +36,12 @@ function fusion(depl, grille) {
             for (let c = 0; c < 4; c++) {
                 for (let l = 3; l != 0; l--) {
                     if (grille.tabTuiles[l][c].val == grille.tabTuiles[l-1][c].val) {
-                        grille.tabTuiles[l][c].val = grille.tabTuiles[l][c].val*2;
-                        grille.tabTuiles[l-1][c].val = 0;
-                        grille.score += grille.tabTuiles[l][c].val;
+                        if (!verification) {
+                            grille.tabTuiles[l][c].val = grille.tabTuiles[l][c].val*2;
+                            grille.tabTuiles[l-1][c].val = 0;
+                            grille.score += grille.tabTuiles[l][c].val;
+                        }
+                        possible = true;
                     }
                 }
             }
@@ -39,15 +49,19 @@ function fusion(depl, grille) {
             for (let c = 0; c < 4; c   ++) {
                 for (let l = 0; l < 3; l++) {
                     if (grille.tabTuiles[l][c].val == grille.tabTuiles[l+1][c].val) {
-                        grille.tabTuiles[l][c].val = grille.tabTuiles[l][c].val*2;
-                        grille.tabTuiles[l+1][c].val = 0;
-                        grille.score += grille.tabTuiles[l][c].val;
+                        if (!verification) {
+                            grille.tabTuiles[l][c].val = grille.tabTuiles[l][c].val*2;
+                            grille.tabTuiles[l+1][c].val = 0;
+                            grille.score += grille.tabTuiles[l][c].val;
+                        }
+                        possible = true;
                     }
                 }
             }
         }
     }
-
+    return possible;
 }
+
 
 export {fusion};

@@ -16,13 +16,17 @@ function init() {
 
 function mainloop () {
     if (!arrayEquals(depl, [0, 0])) {
-        deplacement(depl, grille);
-        fusion(depl, grille);
+        deplacement(depl, grille, 0);
+        fusion(depl, grille, 0);
         depl[0] = 0;
         depl[1] = 0;
         grille.genereTuile(1);
         grille.updateAffichage();
-        grille.checklose();
+        let perdu = grille.checkLose();
+        if (perdu)
+            console.log ("TU AS PERDUUUU AHHAHAA")
+            
+        console.log("état de la game : " +  perdu);
     }
     requestAnimationFrame(mainloop);
 }

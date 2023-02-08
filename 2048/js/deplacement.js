@@ -1,4 +1,5 @@
-function deplacement(depl, grille) {
+function deplacement(depl, grille, verification) {
+    let possible = false; 
     let deplL = depl[0];
     let deplC = depl[1];    
 
@@ -10,16 +11,22 @@ function deplacement(depl, grille) {
                 if (deplC == -1) {
                     while (c < 3) {     //deplacement gauche
                         if (grille.tabTuiles[l][c].val == 0 && grille.tabTuiles[l][c+1].val != 0) {
-                            grille.tabTuiles[l][c].val = grille.tabTuiles[l][c+1].val;
-                            grille.tabTuiles[l][c+1].val = 0;  
+                            if (!verification) { 
+                                grille.tabTuiles[l][c].val = grille.tabTuiles[l][c+1].val;
+                                grille.tabTuiles[l][c+1].val = 0; 
+                            }
+                            possible = true;
                         }
                         c++;
                     }
                 } else {
                     while (c < 3) {     //deplacement droite
                         if (grille.tabTuiles[l][c].val != 0 && grille.tabTuiles[l][c+1].val == 0) {
-                            grille.tabTuiles[l][c+1].val = grille.tabTuiles[l][c].val;
-                            grille.tabTuiles[l][c].val = 0;
+                            if (!verification) {
+                                grille.tabTuiles[l][c+1].val = grille.tabTuiles[l][c].val;
+                                grille.tabTuiles[l][c].val = 0;
+                            }
+                            possible = true;
                         }
                         c++;
                     }
@@ -35,25 +42,32 @@ function deplacement(depl, grille) {
                 if (deplL == 1) {
                     while (l < 3) {
                         if (grille.tabTuiles[l][c].val == 0 && grille.tabTuiles[l+1][c].val != 0) {
-                            grille.tabTuiles[l][c].val = grille.tabTuiles[l+1][c].val;
-                            grille.tabTuiles[l+1][c].val = 0;
+                            if (!verification) {
+                                grille.tabTuiles[l][c].val = grille.tabTuiles[l+1][c].val;
+                                grille.tabTuiles[l+1][c].val = 0;
+                            }
+                            possible = true;
                         }
                         l++;
                     }
                 } else {
                     while (l < 3) {
                         if (grille.tabTuiles[l][c].val != 0 && grille.tabTuiles[l+1][c].val == 0) {
-                            grille.tabTuiles[l+1][c].val = grille.tabTuiles[l][c].val;
-                            grille.tabTuiles[l][c].val = 0;
+                            if (!verification) { 
+                                grille.tabTuiles[l+1][c].val = grille.tabTuiles[l][c].val;
+                                grille.tabTuiles[l][c].val = 0;
+                            }
+                            possible = true;
                         }
+
                         l++;
                     }
                 }
             }
         }
     }
+    return possible; 
 }
-
 
 export {deplacement};
 

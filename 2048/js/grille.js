@@ -1,5 +1,7 @@
 import Tuile from "./tuile.js";
 import {ecouteursClavier} from "./ecouteurs.js";
+import {fusion} from './fusion.js'
+import {deplacement} from './deplacement.js';
 
 export default class Grille {
     constructor(l,c) {
@@ -12,7 +14,6 @@ export default class Grille {
 
     afficherTuiles() {
         document.getElementById('score').innerHTML=this.score;
-        let lose = false;
         let caseDivs = document.querySelectorAll("#grille div"); 
         caseDivs.forEach((div, index) => { 
             let ligne = Math.floor(index/this.l);
@@ -29,11 +30,6 @@ export default class Grille {
         ecouteursClavier(l, c);
 
         console.log(l, c);
-
-            lose = this.checklose();
-        
-
-
     }
 
 
@@ -78,10 +74,16 @@ export default class Grille {
             let l = (1+Math.floor(Math.random() * 4));
             let c = (1+Math.floor(Math.random() * 4));
 
-            while (this.tabTuiles[l-1][c-1].val != 0) {
-                l = (1+Math.floor(Math.random() * 4));
-                c = (1+Math.floor(Math.random() * 4));
+            
+            if (!this.tabPlein()) {
+                while (this.tabTuiles[l-1][c-1].val != 0) {
+                    l = (1+Math.floor(Math.random() * 4));
+                    c = (1+Math.floor(Math.random() * 4));
+                }
+            } else {
+                return;
             }
+
             let index = ((l-1)*4) + c;
             this.tabTuiles[l-1][c-1] = new Tuile(l,c, index);
         }
@@ -100,7 +102,7 @@ export default class Grille {
         return arr;
       }
 
-      checklose() {
+      tabPlein() {
         for (let l = 0; l < 4; l++) {
             for (let c = 0; c < 4; c++) {
                 if (this.tabTuiles[l][c].val == 0) {
@@ -108,7 +110,35 @@ export default class Grille {
                 }
             }
         }
-        console.log("Perdu;")
+        return true;
+      }
+      checkLose() {
+        //verif tab plein 
+        let checkCaseLibre = this.tabPlein();
+        if (checkCaseLibre) 
+            return false;
+        //verif deplacement
+        if (deplacement([-1, 0], this, 1)) {
+            console.log("deplacement bas disponnible")
+            return false ;
+        }
+
+        if (deplacement([1, 0], this, 1))
+            return false ;
+        if (deplacement([0, -1], this, 1))
+            return false ;
+        if (deplacement([0, 1], this, 1))
+            return false ;
+
+        //fusion impossible
+        if (fusion([-1, 0], this, 1))
+            return false;
+        if (fusion([1, 0], this, 1))
+            return false;
+        if (fusion([0, -1], this, 1))
+            return false;
+        if (fusion([0, 1], this, 1))
+            return false;
         return true;
       }
     
