@@ -115,30 +115,28 @@ export default class Grille {
       checkLose() {
         //verif tab plein 
         let checkCaseLibre = this.tabPlein();
-        if (checkCaseLibre) 
+        if (!checkCaseLibre) {
+            console.log("Il y a des cases libre")
             return false;
-        //verif deplacement
-        if (deplacement([-1, 0], this, 1)) {
-            console.log("deplacement bas disponnible")
-            return false ;
         }
 
-        if (deplacement([1, 0], this, 1))
-            return false ;
-        if (deplacement([0, -1], this, 1))
-            return false ;
-        if (deplacement([0, 1], this, 1))
-            return false ;
-
         //fusion impossible
-        if (fusion([-1, 0], this, 1))
-            return false;
-        if (fusion([1, 0], this, 1))
-            return false;
-        if (fusion([0, -1], this, 1))
-            return false;
-        if (fusion([0, 1], this, 1))
-            return false;
+        if (fusion([-1, 0], this, 1)) {
+            console.log("fusion bas disponnible")
+            return false ;
+        }
+        if (fusion([1, 0], this, 1)) {
+            console.log("fusion haut disponnible");
+            return false ;
+        }
+        if (fusion([0, -1], this, 1)) {
+            console.log("fusion gauche disponnible");
+            return false ;
+        }
+        if (fusion([0, 1], this, 1)){
+            console.log("fusion droite disponnible");
+            return false ;
+        }
         return true;
       }
     

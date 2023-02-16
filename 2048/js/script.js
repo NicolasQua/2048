@@ -16,7 +16,7 @@ function init() {
 
 function mainloop () {
     if (!arrayEquals(depl, [0, 0])) {
-        deplacement(depl, grille, 0);
+        deplacement(depl, grille);
         fusion(depl, grille, 0);
         depl[0] = 0;
         depl[1] = 0;

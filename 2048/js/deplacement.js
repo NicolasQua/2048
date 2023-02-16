@@ -1,4 +1,4 @@
-function deplacement(depl, grille, verification) {
+function deplacement(depl, grille) {
     let possible = false; 
     let deplL = depl[0];
     let deplC = depl[1];    
@@ -11,22 +11,16 @@ function deplacement(depl, grille, verification) {
                 if (deplC == -1) {
                     while (c < 3) {     //deplacement gauche
                         if (grille.tabTuiles[l][c].val == 0 && grille.tabTuiles[l][c+1].val != 0) {
-                            if (!verification) { 
-                                grille.tabTuiles[l][c].val = grille.tabTuiles[l][c+1].val;
-                                grille.tabTuiles[l][c+1].val = 0; 
-                            }
-                            possible = true;
+                            grille.tabTuiles[l][c].val = grille.tabTuiles[l][c+1].val;
+                            grille.tabTuiles[l][c+1].val = 0; 
                         }
                         c++;
                     }
                 } else {
                     while (c < 3) {     //deplacement droite
                         if (grille.tabTuiles[l][c].val != 0 && grille.tabTuiles[l][c+1].val == 0) {
-                            if (!verification) {
-                                grille.tabTuiles[l][c+1].val = grille.tabTuiles[l][c].val;
-                                grille.tabTuiles[l][c].val = 0;
-                            }
-                            possible = true;
+                            grille.tabTuiles[l][c+1].val = grille.tabTuiles[l][c].val;
+                            grille.tabTuiles[l][c].val = 0;
                         }
                         c++;
                     }
@@ -42,24 +36,17 @@ function deplacement(depl, grille, verification) {
                 if (deplL == 1) {
                     while (l < 3) {
                         if (grille.tabTuiles[l][c].val == 0 && grille.tabTuiles[l+1][c].val != 0) {
-                            if (!verification) {
-                                grille.tabTuiles[l][c].val = grille.tabTuiles[l+1][c].val;
-                                grille.tabTuiles[l+1][c].val = 0;
-                            }
-                            possible = true;
+                            grille.tabTuiles[l][c].val = grille.tabTuiles[l+1][c].val;
+                            grille.tabTuiles[l+1][c].val = 0;
                         }
                         l++;
                     }
                 } else {
                     while (l < 3) {
                         if (grille.tabTuiles[l][c].val != 0 && grille.tabTuiles[l+1][c].val == 0) {
-                            if (!verification) { 
-                                grille.tabTuiles[l+1][c].val = grille.tabTuiles[l][c].val;
-                                grille.tabTuiles[l][c].val = 0;
-                            }
-                            possible = true;
+                            grille.tabTuiles[l+1][c].val = grille.tabTuiles[l][c].val;
+                            grille.tabTuiles[l][c].val = 0;
                         }
-
                         l++;
                     }
                 }
