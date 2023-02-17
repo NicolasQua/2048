@@ -10,7 +10,10 @@ function fusion(depl, grille, verification) {
                         if (!verification) {
                             grille.tabTuiles[l][c].val = grille.tabTuiles[l][c].val*2;
                             grille.tabTuiles[l][c+1].val = 0;
-                            grille.score += grille.tabTuiles[l][c].val;
+                            if (grille.tabTuiles[l][c].triche == false && grille.tabTuiles[l][c+1].triche == false)
+                                grille.score += grille.tabTuiles[l][c].val;
+                                else
+                            grille.tabTuiles[l][c].triche = true;
                         }
                         possible = true;
                     }
@@ -23,7 +26,11 @@ function fusion(depl, grille, verification) {
                         if (!verification) {
                             grille.tabTuiles[l][c].val = grille.tabTuiles[l][c].val*2;
                             grille.tabTuiles[l][c-1].val = 0;
-                            grille.score += grille.tabTuiles[l][c].val;
+                            if (grille.tabTuiles[l][c].triche == false && grille.tabTuiles[l][c-1].triche == false)
+                                grille.score += grille.tabTuiles[l][c].val;
+                            else
+                                grille.tabTuiles[l][c].triche = true;
+
                         }
                         possible = true;
                     }
@@ -39,7 +46,10 @@ function fusion(depl, grille, verification) {
                         if (!verification) {
                             grille.tabTuiles[l][c].val = grille.tabTuiles[l][c].val*2;
                             grille.tabTuiles[l-1][c].val = 0;
-                            grille.score += grille.tabTuiles[l][c].val;
+                            if (grille.tabTuiles[l][c].triche == false && grille.tabTuiles[l-1][c].triche == false)
+                                grille.score += grille.tabTuiles[l][c].val;
+                            else
+                                grille.tabTuiles[l][c].triche = true;
                         }
                         possible = true;
                     }
@@ -52,7 +62,10 @@ function fusion(depl, grille, verification) {
                         if (!verification) {
                             grille.tabTuiles[l][c].val = grille.tabTuiles[l][c].val*2;
                             grille.tabTuiles[l+1][c].val = 0;
-                            grille.score += grille.tabTuiles[l][c].val;
+                            if (grille.tabTuiles[l][c].triche == false && grille.tabTuiles[l+1][c].triche == false)
+                                grille.score += grille.tabTuiles[l][c].val;
+                            else
+                                grille.tabTuiles[l][c].triche = true;
                         }
                         possible = true;
                     }

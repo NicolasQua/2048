@@ -1,7 +1,7 @@
 import Tuile from "./tuile.js";
 import {ecouteursClavier} from "./ecouteurs.js";
 import {fusion} from './fusion.js'
-import {deplacement} from './deplacement.js';
+import { randomTileValue, create2DArray, genereTuile } from "./utils.js";
 
 export default class Grille {
     constructor(l,c) {
@@ -25,25 +25,27 @@ export default class Grille {
         }); 
         let l;
         let c;
-
-
         ecouteursClavier(l, c);
-
         console.log(l, c);
     }
 
 
     initTuiles() {
-        this.tabTuiles = this.create2DArray(4);
-        let index = 0;
+        this.tabTuiles = create2DArray(4);
         for (let l = 0; l < 4; l++) {
             for (let c = 0; c < 4; c++) {
-                this.tabTuiles[l][c] = new Tuile(l,c, index);
+                let tmp = Math.random(); 
+                let val = 0;
+                if (tmp > 0.9) {
+                    val = 4;
+                } else {
+                    val = 2;
+                }
+                this.tabTuiles[l][c] = new Tuile(l ,c ,randomTileValue());
                 this.tabTuiles[l][c].val = 0;
-                index++;
             }
         }
-        this.genereTuile(2);
+        genereTuile(2, randomTileValue(), this);
     }
 
     updateAffichage() {
@@ -65,42 +67,17 @@ export default class Grille {
                     document.getElementById(index).style.opacity = 0;
                 }
             }
-
         }
+        document.getElementById('score').innerHTML=this.score;
     }
 
-    genereTuile(nbr) {
-        for (let i = 0; i < nbr; i++) {
-            let l = (1+Math.floor(Math.random() * 4));
-            let c = (1+Math.floor(Math.random() * 4));
-
-            
-            if (!this.tabPlein()) {
-                while (this.tabTuiles[l-1][c-1].val != 0) {
-                    l = (1+Math.floor(Math.random() * 4));
-                    c = (1+Math.floor(Math.random() * 4));
-                }
-            } else {
-                return;
-            }
-
-            let index = ((l-1)*4) + c;
-            this.tabTuiles[l-1][c-1] = new Tuile(l,c, index);
-        }
-    }
     
     afficheTab () {
         for (let l = 0; l < 4; l++) {
             console.log(this.tabTuiles[l][0].val + " " +this.tabTuiles[l][1].val + " "+ this.tabTuiles[l][2].val + " " + this.tabTuiles[l][3].val);
         }
     }
-    create2DArray(rows) {
-        let arr = [];
-        for (let i = 0; i < rows; i++) {
-          arr[i] = [];
-        }
-        return arr;
-      }
+
 
       tabPlein() {
         for (let l = 0; l < 4; l++) {
@@ -114,29 +91,18 @@ export default class Grille {
       }
       checkLose() {
         //verif tab plein 
-        let checkCaseLibre = this.tabPlein();
-        if (!checkCaseLibre) {
-            console.log("Il y a des cases libre")
+        if (!this.tabPlein())
             return false;
-        }
 
         //fusion impossible
-        if (fusion([-1, 0], this, 1)) {
-            console.log("fusion bas disponnible")
+        if (fusion([-1, 0], this, 1))
             return false ;
-        }
-        if (fusion([1, 0], this, 1)) {
-            console.log("fusion haut disponnible");
+        if (fusion([1, 0], this, 1))
             return false ;
-        }
-        if (fusion([0, -1], this, 1)) {
-            console.log("fusion gauche disponnible");
+        if (fusion([0, -1], this, 1))
             return false ;
-        }
-        if (fusion([0, 1], this, 1)){
-            console.log("fusion droite disponnible");
+        if (fusion([0, 1], this, 1))
             return false ;
-        }
         return true;
       }
     

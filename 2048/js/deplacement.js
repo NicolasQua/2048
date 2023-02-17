@@ -12,7 +12,9 @@ function deplacement(depl, grille) {
                     while (c < 3) {     //deplacement gauche
                         if (grille.tabTuiles[l][c].val == 0 && grille.tabTuiles[l][c+1].val != 0) {
                             grille.tabTuiles[l][c].val = grille.tabTuiles[l][c+1].val;
+                            grille.tabTuiles[l][c].triche = grille.tabTuiles[l][c+1].triche;
                             grille.tabTuiles[l][c+1].val = 0; 
+                            grille.tabTuiles[l][c+1].triche = false; 
                         }
                         c++;
                     }
@@ -20,7 +22,9 @@ function deplacement(depl, grille) {
                     while (c < 3) {     //deplacement droite
                         if (grille.tabTuiles[l][c].val != 0 && grille.tabTuiles[l][c+1].val == 0) {
                             grille.tabTuiles[l][c+1].val = grille.tabTuiles[l][c].val;
+                            grille.tabTuiles[l][c+1].triche = grille.tabTuiles[l][c].triche;
                             grille.tabTuiles[l][c].val = 0;
+                            grille.tabTuiles[l][c].triche = false;
                         }
                         c++;
                     }
@@ -37,7 +41,9 @@ function deplacement(depl, grille) {
                     while (l < 3) {
                         if (grille.tabTuiles[l][c].val == 0 && grille.tabTuiles[l+1][c].val != 0) {
                             grille.tabTuiles[l][c].val = grille.tabTuiles[l+1][c].val;
+                            grille.tabTuiles[l][c].triche = grille.tabTuiles[l+1][c].triche;
                             grille.tabTuiles[l+1][c].val = 0;
+                            grille.tabTuiles[l+1][c].triche = false;
                         }
                         l++;
                     }
@@ -45,7 +51,9 @@ function deplacement(depl, grille) {
                     while (l < 3) {
                         if (grille.tabTuiles[l][c].val != 0 && grille.tabTuiles[l+1][c].val == 0) {
                             grille.tabTuiles[l+1][c].val = grille.tabTuiles[l][c].val;
+                            grille.tabTuiles[l+1][c].triche = grille.tabTuiles[l][c].triche;
                             grille.tabTuiles[l][c].val = 0;
+                            grille.tabTuiles[l][c].triche = false ;
                         }
                         l++;
                     }

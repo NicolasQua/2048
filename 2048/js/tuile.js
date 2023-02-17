@@ -1,13 +1,11 @@
 export default class Tuile {
-    constructor(ligne, colonne, index) {
-        let tmp = Math.random(); 
-        if (tmp > 0.9) {
-            this.val = 4;
-        } else {
-            this.val = 2;
-        }
-
+    constructor(ligne, colonne, val) {
+        this.val = val;
         this.ligne = ligne;
         this.colonne = colonne;
+        if (val > 4)
+            this.triche = true;
+        else
+            this.triche = false;
     }
 }

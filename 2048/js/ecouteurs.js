@@ -1,3 +1,6 @@
+import {genereTuile} from "./utils.js";
+import Grille from "./grille.js";
+
 let depl = [0, 0];
 
 function ecouteursClavier() {
@@ -22,5 +25,21 @@ function ecouteursClavier() {
     }
     depl = [0, 0]
 }
+function ecouteursButtons (grille){
+    let val = 8;
+    let i = 0;
+    while (i < 8) {
+        let button = document.getElementById(`add${val}`);
+        button.addEventListener("click", function() {
+            genereTuile(1, button.innerHTML, grille);
+            console.log(button.innerHTML);
+            grille.updateAffichage();
+        });
+        val *= 2;
+        i++;
+    }
 
-export {ecouteursClavier, depl};
+}
+
+
+export {ecouteursClavier, depl, ecouteursButtons};

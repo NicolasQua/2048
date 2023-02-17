@@ -1,7 +1,8 @@
 import Grille from './grille.js';
-import { ecouteursClavier, depl } from './ecouteurs.js';
+import { ecouteursClavier, depl, ecouteursButtons } from './ecouteurs.js';
 import { deplacement } from './deplacement.js';
 import { fusion } from './fusion.js';
+import { randomTileValue, genereTuile } from './utils.js';
 
 window.onload = init;
 let grille;
@@ -10,6 +11,7 @@ function init() {
     grille = new Grille(4, 4);
     grille.afficherTuiles();
     ecouteursClavier();
+    ecouteursButtons(grille);
     requestAnimationFrame(mainloop);
 }
 
@@ -20,13 +22,11 @@ function mainloop () {
         fusion(depl, grille, 0);
         depl[0] = 0;
         depl[1] = 0;
-        grille.genereTuile(1);
+        genereTuile(1, randomTileValue(), grille);
         grille.updateAffichage();
         let perdu = grille.checkLose();
         if (perdu)
             console.log ("TU AS PERDUUUU AHHAHAA")
-            
-        console.log("état de la game : " +  perdu);
     }
     requestAnimationFrame(mainloop);
 }
