@@ -1,0 +1,19 @@
+.snakee {
+    transition: transform 10s;
+}
+
+.snakee .right {
+    transform: translateX(100px);
+}
+
+.snakee .left {
+    transform: translateX(-100px);
+}
+
+.snakee .up {
+    transform: translateY(-100px);
+}
+
+.snakee .down {
+    transform: translateY(100px);
+}

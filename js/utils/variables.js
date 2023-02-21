@@ -1,5 +1,5 @@
 const intElemClientHeight = window.innerHeight;
-const intElemClientWidth = window.innerWidth;
+const intElemClientWidth = window.innerWidth - 50;
 
 const height_box_home = intElemClientHeight;
 const width_box_home = intElemClientWidth - 10;

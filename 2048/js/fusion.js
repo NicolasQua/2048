@@ -12,8 +12,8 @@ function fusion(depl, grille, verification) {
                             grille.tabTuiles[l][c+1].val = 0;
                             if (grille.tabTuiles[l][c].triche == false && grille.tabTuiles[l][c+1].triche == false)
                                 grille.score += grille.tabTuiles[l][c].val;
-                                else
-                            grille.tabTuiles[l][c].triche = true;
+                            else
+                                grille.tabTuiles[l][c].triche = true;
                         }
                         possible = true;
                     }

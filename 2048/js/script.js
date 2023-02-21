@@ -38,3 +38,4 @@ function arrayEquals(a, b) {
         a.every((val, index) => val === b[index]);
 }
 
+export { init }

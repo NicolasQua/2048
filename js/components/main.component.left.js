@@ -1,18 +1,4 @@
-import { height_box_main_left, width_box_main_left } from "../utils/variables.js";
-
-const template = document.createElement('template');
-
-template.innerHTML = `<style>
-  .card-main-left {
-    position: relative;
-    border-radius: 5px;
-    margin: 5px;
-    height: ${height_box_main_left}px;
-    width: ${width_box_main_left - 10}px;
-    background-color: white;
-  }
-
-</style>`;
+import { template_left } from "../template/2048.template.left.js";
 
 export class MainComponentLeft extends HTMLElement {
   constructor() {
@@ -21,6 +7,9 @@ export class MainComponentLeft extends HTMLElement {
     this.div = document.createElement("div");
     this.div.setAttribute("class", "card-main-left");
     this.shadow.appendChild(this.div);
-    this.div.appendChild(template.content.cloneNode(true));
+  }
+
+  connectedCallback() {
+    this.div.appendChild(template_left.content.cloneNode(true));
   }
 }

@@ -30,7 +30,7 @@ export class Fonctionalities {
         ctx.restore();                                      // restore the context of the canvas (restore the color of the canvas)
     }
 
-    static drawBlock(ctx, position, blockSize){                      // draw the snake on the canvas (function) with the context and the position as parameters
+    static drawBlock(ctx, position, blockSize){                     // draw the snake on the canvas (function) with the context and the position as parameters
         let x = position[0] * blockSize;                    // set the x position of the snake
         let y = position[1] * blockSize;                    // set the y position of the snake
         ctx.fillRect(x, y, blockSize, blockSize);           // draw the snake

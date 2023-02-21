@@ -2,8 +2,10 @@ import Tuile from "./tuile.js";
 import {ecouteursClavier} from "./ecouteurs.js";
 import {fusion} from './fusion.js'
 import { randomTileValue, create2DArray, genereTuile } from "./utils.js";
+import { query_selector_center, query_selector_center_all } from "../../js/components/request.queryselector.js";
 
 export default class Grille {
+
     constructor(l,c) {
         this.c = c;
         this.l = l;
@@ -13,20 +15,23 @@ export default class Grille {
     }
 
     afficherTuiles() {
-        document.getElementById('score').innerHTML=this.score;
-        let caseDivs = document.querySelectorAll("#grille div"); 
-        caseDivs.forEach((div, index) => { 
-            let ligne = Math.floor(index/this.l);
-            let colonne = index%this.c;
+        let lose = false;
+        let caseDivs = query_selector_center_all(".grille");
+
+        caseDivs.forEach((div, index) => {
+            let ligne = Math.floor(index / this.l);
+            let colonne = index % this.c;
             let tuile = this.tabTuiles[ligne][colonne];
             if (tuile.val != 0) {
-                document.getElementById(index).innerHTML=tuile.val;
+                div.innerHTML = tuile.val;
             }
-        }); 
+            index++;
+        });
         let l;
         let c;
+
         ecouteursClavier(l, c);
-        console.log(l, c);
+        lose = this.checkLose();
     }
 
 
@@ -53,22 +58,23 @@ export default class Grille {
         for (let l = 0; l < 4; l++) {
             for (let c = 0; c < 4; c++) {
                 let tuile = this.tabTuiles[l][c].val;
-                let index =(l*4) + c;
+                let index = (l * 4) + c;
+                let selector = `[id='${index}']`;
                 if (tuile != 0) {
-                    document.getElementById(index).innerHTML=tuile;
+                    query_selector_center(selector).innerHTML = tuile;
                     if (tuile < 128) {
-                        document.getElementById(index).style.background=`rgb(255,255,${255-tuile*4})`;
+                        query_selector_center(selector).style.background = `rgb(255,255,${255 - tuile * 4})`;
                     } else {
-                        document.getElementById(index).style.background=`rgb(255,${255-tuile/2},0)`;
+                        query_selector_center(selector).style.background = `rgb(255,${255 - tuile / 2},0)`;
                     }
-                    document.getElementById(index).style.opacity = 0.7;
+                    query_selector_center(selector).style.opacity = 0.7;
                 } else {
-                    document.getElementById(index).innerHTML="";
-                    document.getElementById(index).style.opacity = 0;
+                    query_selector_center(selector).innerHTML = "";
+                    query_selector_center(selector).style.opacity = 0;
                 }
             }
         }
-        document.getElementById('score').innerHTML=this.score;
+        query_selector_center("[id='score']").innerHTML = this.score;
     }
 
     
@@ -105,5 +111,4 @@ export default class Grille {
             return false ;
         return true;
       }
-    
 }

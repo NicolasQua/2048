@@ -8,7 +8,7 @@ body {
   font-family: sans-serif;
 }
 
-a {
+a, button {
   text-decoration: none;
   color: #f7f4f4;
   font-size: 1.2rem;
@@ -16,7 +16,7 @@ a {
   text-transform: uppercase;
 }
 
-.nav a {
+.nav a, button {
   padding-left: 20px;
 }
 
@@ -30,6 +30,10 @@ a {
   border-radius: 5px;
 }
 
+button {
+  background-color: rgb(2, 16, 73);
+}
+
 .nav__link {
   position: fixed;
   width: 94%;
@@ -38,13 +42,18 @@ a {
   background-color: lightblue;
 }
 
-.nav__link a {
+.nav__link a, button {
   display: block;
   text-align: center;
   padding: 10px 0;
 }
 
 .nav__link a:hover {
+  background-color: rgb(116, 149, 110);
+  border-radius: 3px;
+}
+
+.nav__link button:hover {
   background-color: rgb(116, 149, 110);
   border-radius: 3px;
 }
@@ -62,7 +71,7 @@ a {
     background: none;
   }
 
-  .nav__link a {
+  .nav__link a, button {
     display: inline-block;
     padding: 15px 20px;
   }

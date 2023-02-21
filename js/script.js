@@ -8,7 +8,7 @@ import { FooterComponent } from './components/footer.component.js';
 import { PossibilitiesComponent } from './components/possibilities.component.js';
 
 customElements.define("home-component", HomeComponent);
-// customElements.define("header-component", HeaderComponent);
+customElements.define("header-component", HeaderComponent);
 customElements.define("main-component", MainComponent);
 customElements.define("main-component-left", MainComponentLeft);
 customElements.define("main-component-center", MainComponentCenter);

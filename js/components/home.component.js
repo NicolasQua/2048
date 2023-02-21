@@ -6,7 +6,7 @@ template.innerHTML = `<style>
   .home-card {
     background-color: #ddd;
     border-radius: 5px;
-    margin: 5px;
+    margin: 25px;
     padding: 5px;
     height: ${height_box_home}px;
     width: ${width_box_home}px;
@@ -25,6 +25,9 @@ export class HomeComponent extends HTMLElement {
     this.div = document.createElement("div");
     this.div.setAttribute("class", "home-card");
     this.shadow.appendChild(this.div);
+  }
+
+  connectedCallback() {
     this.div.appendChild(template.content.cloneNode(true));
   }
 }

@@ -59,7 +59,6 @@ export class Snake{
         if(allowedDirections.indexOf(newDirection) > -1){  // if the new direction is allowed   set the allowed directions of the snake (left and right)
             this.direction = newDirection;                  // set the direction of the snake to the new direction   set the allowed directions of the snake (left and right)
         }
-
     }
 
     checkCollision(widthInBlocks, heightInBlocks){                   // check the collision of the snake (function) with the context and the position as parameters
@@ -73,11 +72,12 @@ export class Snake{
         let minY = 0;                                   // set the minimum y position of the snake (set the minimum y position of the snake)
         let maxX = widthInBlocks - 1;                   // set the maximum x position of the snake (set the maximum x position of the snake)
         let maxY = heightInBlocks - 1;                  // set the maximum y position of the snake (set the maximum y position of the snake)
-        let isNotBetweenHorizontalWalls = snakeX < minX || snakeX > maxX;  // set the horizontal wall collision to true (set the horizontal wall collision to true)
+        let isNotBetweenHorizontalWalls = snakeX < minX || snakeX >= maxX;  // set the horizontal wall collision to true (set the horizontal wall collision to true)
         let isNotBetweenVerticalWalls = snakeY < minY || snakeY > maxY;    // set the vertical wall collision to true (set the vertical wall collision to true)
 
         if(isNotBetweenHorizontalWalls || isNotBetweenVerticalWalls){      // if the snake is not between the horizontal or vertical walls   set the vertical wall collision to true
             wallCollision = true;                                           // set the wall collision to true   set the vertical wall collision to true
+            console.log(maxX, snakeX);
         }
 
         for(let i = 0; i < rest.length; i++){                              // for each element of the rest of the snake   set the vertical wall collision to true
