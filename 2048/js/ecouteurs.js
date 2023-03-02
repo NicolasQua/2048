@@ -47,6 +47,8 @@ function ecouteursButtons (grille){
     while (i <= 1024) {
         let selector = `[id='add${i}']`;
         let button = query_selector_left(selector);
+        if (button === null)
+            break;
         button.addEventListener("click", function() {
             genereTuile(1, button.innerHTML, grille);
             grille.updateAffichage();
@@ -66,7 +68,8 @@ function button_nav_bar() {
     });
     let button_snake = document.getElementById("__snake__");
     button_snake.addEventListener("click", function() {
-        let shadow_root = gestionnaire("SNAKE");
+        query_selector_left(".card-main-left").innerHTML = "";
+        gestionnaire("SNAKE");
         initCanvas();
     });
 }

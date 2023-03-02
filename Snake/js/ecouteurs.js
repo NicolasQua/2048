@@ -1,3 +1,5 @@
+import { query_selector_left } from "../../js/components/request.queryselector.js";
+
 let inputStates = {};
 
 function definitEcouteurs() {
@@ -58,4 +60,20 @@ function definirEcouteurClavier() {
     }
 }
 
-export { definitEcouteurs, inputStates }
+function ecouteursButtonsPlay (){
+    let selector = `[id='play']`;
+    let button = query_selector_left(selector);
+    if (button === null)
+        return;
+    return button;
+}
+
+function ecouteursButtonsStop (){
+    let selector = `[id='stop']`;
+    let button = query_selector_left(selector);
+    if (button === null)
+        return;
+    return button;
+}
+
+export { definitEcouteurs, inputStates, ecouteursButtonsPlay, ecouteursButtonsStop }

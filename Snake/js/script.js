@@ -1,4 +1,4 @@
-import  { inputStates, definitEcouteurs }  from  "./ecouteurs.js" ;
+import  { inputStates, definitEcouteurs, ecouteursButtonsPlay, ecouteursButtonsStop }  from  "./ecouteurs.js" ;
 import { height_box_main_center, width_box_main_center } from "../../js/utils/variables.js";
 import { query_selector_root } from "../../js/components/request.queryselector.js";
 
@@ -17,6 +17,7 @@ let drawnMousePos = { x: 0, y: 0 };
 
 let INSTRUCT = "instruct";
 let PLAY = "play";
+let PAUSE = "pause";
 let mode = INSTRUCT;
 
 // Static snake settings
@@ -41,8 +42,8 @@ let speedFrequency = 1000; // Frequency of speed change in milliseconds
 let minSnakeSpeed = 1.05; // minimum speed (1 + number of segLengths per frame)
 let maxSnakeSpeed = 1.20; // maximum speed (1 + number of segLengths per frame)
 let accelerationPerSecond = 0.005;
-let angleFrequency = 1000;  // Frequency of angle change in milliseconds
-let maxAngleDeviation = Math.PI / 3; // Max deviation from correct angle
+let angleFrequency = 2000;  // Frequency of angle change in milliseconds
+let maxAngleDeviation = Math.PI/4; // Max deviation from correct angle
 
 // Game variables
 let startTime = 0;
@@ -59,10 +60,22 @@ let direction = { x: canvasWidth, y: canvasHeight };
 export function initCanvas() {
     x[0] = 10;
     y[0] = 10;
+    direction = { x: canvasWidth, y: canvasHeight };
     canvas = document.createElement('canvas'); // create the canvas element (the canvas)
     canvas.width = canvasWidth; // set the width of the canvas
     canvas.height = canvasHeight; // set the height of the canvas
 
+    canvas.style.backgroundColor = "white";
+    canvas.style.borderRadius = "15px";
+    canvas.style.boxShadow = "0 0 10px 0 rgba(0, 0, 0, 0.5)";
+    canvas.style.display = "flex";
+    canvas.style.justifyContent = "center";
+    canvas.style.alignItems = "center";
+    canvas.style.flexDirection = "column";
+    canvas.style.margin = "auto";
+    canvas.style.overflow = "auto";
+    canvas.style.position = "relative";
+    canvas.style.zIndex = "1";
     canvas.style.border = '3px solid grey'; // set the border of the canvas
     canvas.style.margin = '5px auto'; // set the margin of the canvas
     canvas.style.display = 'block'; // set the display of the canvas
@@ -84,12 +97,18 @@ export function initCanvas() {
           mousePos = getMousePos(canvas, evt);
     }, false);
 
-    canvas.addEventListener('click', function (evt) {
-        if( mode === INSTRUCT) {
+    ecouteursButtonsPlay().addEventListener('click', function (evt) {
+        if( mode === INSTRUCT || mode === PAUSE) {
           mode = PLAY;
           startTime = getCurrentTime();
           mouseLeftPlayingArea = false;
           requestAnimationFrame(animate);
+        }
+    }, false);
+
+    ecouteursButtonsStop().addEventListener('click', function (evt) {
+        if( mode === PLAY) {
+          mode = PAUSE;
         }
     }, false);
 
@@ -122,12 +141,9 @@ function drawInstructions() {
 
     // ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     ctx.font = "bold 15px Georgia";
-    ctx.fillText('Welcome to "Save the Mouse"', margin, margin + line++ * lineHeight);
+    ctx.fillText('Welcome to "Eat the Mouse"', margin, margin + line++ * lineHeight);
     ctx.font = "15px Georgia";
-    ctx.fillText('Move your pointer to keep the mouse from the snake.', margin, margin + line++ * lineHeight);
-    ctx.fillText('You must keep your pointer inside the square.', margin, margin + line++ * lineHeight);
-    ctx.fillText('The snake gets faster as he gets more hungry!', margin, margin + line++ * lineHeight);
-    ctx.fillText('Click anywhere in the box to start.', margin, margin + line++ * lineHeight);
+    ctx.fillText('Click play to start.', margin, margin + line++ * lineHeight);
 }
 
 function drawResults() {
@@ -140,34 +156,76 @@ function animate(timestamp) {
 
     // ADD A NICE BACKGROUND HERE?
 
-    // draw the snake, only when the mouse entered at
-    // least once the canvas surface
-    if (mousePos !== undefined) {
-        drawMouse(mousePos.x, mousePos.y);
-        let newPos = closePredatorPreyGap();
-        drawSnake(newPos.x, newPos.y);
-    }
+    // Draw the mouse
+    drawMouse(20, 100);
+    let newPos = closePredatorPreyGap();
+    drawSnake(newPos.x, newPos.y);
 
     // DRAW EXTRA THINGS HERE?
 
     // // Stop if the mouse has been caught.
     if (mode === PLAY)
         requestAnimationFrame(animate);
+    else if (mode === PAUSE)
+        drawInstructions();
     else
         drawResults();
 }
 
 function setNewDirection(){
-    let newDirection = { x: direction.x, y:  direction.y };
-    let cX = x[0] - x[1];
-    let cY = y[0] - y[1];
-    for(;;){
-        newDirection.x += cX;
-        newDirection.y += cY;
-        if (newDirection.x <= 0 || newDirection.y <= 0 || newDirection.x >= canvasWidth || newDirection.y >= canvasHeight)
-            break;
+    let newDirection = { x: x[0], y:  y[0] };
+    if (y[0] === y[1]){
+        if (x[0] > x[1]){
+            while(newDirection.x < canvasWidth){
+                newDirection.x++;
+            }
+        } else {
+            while(newDirection.x > 0){
+                newDirection.x--;
+            }
+        }
+        return newDirection;
     }
-    return newDirection;
+    if (x[0] === x[1]){
+        if (y[0] > y[1]){
+            while(newDirection.y < canvasHeight){
+                newDirection.y++;
+            }
+        } else {
+            while(newDirection.y > 0){
+                newDirection.y--;
+            }
+        }
+        return newDirection;
+    }
+    if (x[0] > x[1] && y[0] > y[1]){
+        while(newDirection.x < canvasWidth && newDirection.y < canvasHeight){
+            newDirection.x++;
+            newDirection.y++;
+        }
+        return newDirection;
+    }
+    if (x[0] > x[1] && y[0] < y[1]){
+        while(newDirection.x < canvasWidth && newDirection.y > 0){
+            newDirection.x++;
+            newDirection.y--;
+        }
+        return newDirection;
+    }
+    if (x[0] < x[1] && y[0] > y[1]){
+        while(newDirection.x > 0 && newDirection.y < canvasHeight){
+            newDirection.x--;
+            newDirection.y++;
+        }
+        return newDirection;
+    }
+    if (x[0] < x[1] && y[0] < y[1]){
+        while(newDirection.x > 0 && newDirection.y > 0){
+            newDirection.x--;
+            newDirection.y--;
+        }
+        return newDirection;
+    }
 }
 
 function closePredatorPreyGap() {
@@ -195,19 +253,26 @@ function closePredatorPreyGap() {
     }else {
         newSpeed = oscillateValue(speedFrequency, 0, minSnakeSpeed, maxSnakeSpeed);
         newSpeed += (currentTime - startTime) / 1000 * accelerationPerSecond;      // Increase speed over time.
+        ppAngle = oscillateValue(angleFrequency, 0, ppAngle - maxAngleDeviation, ppAngle + maxAngleDeviation);
         if (inputStates.gauche) {
-            ppAngle -= Math.PI / 2;
             direction = setNewDirection();
+            ppAngle -= Math.PI / 6;
         }
         if (inputStates.droite) {
-            ppAngle += Math.PI / 2;
             direction = setNewDirection();
+            ppAngle += Math.PI / 6;
         }
-        ppAngle = oscillateValue(angleFrequency, 0, ppAngle - maxAngleDeviation, ppAngle + maxAngleDeviation);
+        if (inputStates.haut) {
+            direction = setNewDirection();
+            ppAngle -= Math.PI / 6;
+        }
+        if (inputStates.bas) {
+            direction = setNewDirection();
+            ppAngle += Math.PI / 6;
+        }
         newX = x[0] + Math.cos(ppAngle) * (segLength * newSpeed);
         newY = y[0] + Math.sin(ppAngle) * (segLength * newSpeed);
     }
-
     return { x: newX, y: newY };
 }
 

@@ -1,4 +1,5 @@
 import { height_box_main_center, width_box_main_center } from "../utils/variables.js";
+
 const template = document.createElement('template');
 
 template.innerHTML = `

@@ -1,5 +1,6 @@
 import { query_selector_header, query_selector_root, query_selector_left_root, query_selector_left } from "../components/request.queryselector.js";
 import { template_button_add_value_2048 } from "../template/button.add.value.2048.js";
+import { template_button_play_stop_snake } from "../template/button.play.stop.snake.js";
 import { template_left } from "../template/2048.template.left.js";
 
 export default function gestionnaire(name){
@@ -17,7 +18,8 @@ export default function gestionnaire(name){
     }
     else if (name == "SNAKE"){
         name_game.innerHTML = "SNAKE";
-        add_button.innerHTML = "";
+        if (add_button.innerHTML === "")
+            add_button.appendChild(template_button_play_stop_snake.content.cloneNode(true));
     }
 
     shadow_root_home.innerHTML = "";
