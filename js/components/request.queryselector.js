@@ -70,6 +70,11 @@ const query_selector_home_all = (selector, parent = document.querySelector("home
     return parent.querySelectorAll(selector);
 }
 
+const query_selector_footer = (selector, parent = document.querySelector("home-component")
+                                                    .shadowRoot.querySelector("footer-component").shadowRoot) => {
+    return parent.querySelector(selector);
+}
+
 export { query_selector_center,
             query_selector_right,
             query_selector_left,
@@ -81,5 +86,6 @@ export { query_selector_center,
             query_selector_header_all,
             query_selector_home_all,
             query_selector_root,
-            query_selector_left_root
+            query_selector_left_root,
+            query_selector_footer
         }

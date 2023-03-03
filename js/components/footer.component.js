@@ -7,9 +7,9 @@ template.innerHTML = `<style>
     .card-footer {
       border-radius: 5px;
       margin: 5px;
-      margin-top: 25px;
-      margin-bottom: 25px;
-      height: ${height_box_header - 50}px;
+      margin-top: 40px;
+      margin-bottom: 5px;
+      height: ${height_box_header - 5}px;
       width: ${width_box_header - 5}px;
       background-color: white;
     }

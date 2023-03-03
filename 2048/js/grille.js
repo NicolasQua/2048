@@ -2,7 +2,7 @@ import Tuile from "./tuile.js";
 import {ecouteursClavier} from "./ecouteurs.js";
 import {fusion} from './fusion.js'
 import { randomTileValue, create2DArray, genereTuile } from "./utils.js";
-import { query_selector_center, query_selector_center_all } from "../../js/components/request.queryselector.js";
+import { query_selector_center, query_selector_center_all, query_selector_footer } from "../../js/components/request.queryselector.js";
 
 export default class Grille {
 
@@ -75,6 +75,7 @@ export default class Grille {
             }
         }
         query_selector_center("[id='score']").innerHTML = this.score;
+        query_selector_footer("[id='score']").innerHTML = this.score;
     }
 
     

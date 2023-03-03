@@ -76,4 +76,44 @@ function ecouteursButtonsStop (){
     return button;
 }
 
-export { definitEcouteurs, inputStates, ecouteursButtonsPlay, ecouteursButtonsStop }
+function ecouteursButtonsReset (){
+    let selector = `[id='reset']`;
+    let button = query_selector_left(selector);
+    if (button === null)
+        return;
+    return button;
+}
+
+function ecouteursButtonsChangeBg1 (){
+    let selector = `[id='bg-image1']`;
+    let button = query_selector_left(selector);
+    if (button === null)
+        return;
+    return button;
+}
+
+function ecouteursButtonsChangeBg2 (){
+    let selector = `[id='bg-image2']`;
+    let button = query_selector_left(selector);
+    if (button === null)
+        return;
+    return button;
+}
+
+function ecouteursButtonsChangeBg3 (){
+    let selector = `[id='bg-image3']`;
+    let button = query_selector_left(selector);
+    if (button === null)
+        return;
+    return button;
+}
+
+export { definitEcouteurs,
+         inputStates,
+         ecouteursButtonsPlay,
+         ecouteursButtonsStop,
+         ecouteursButtonsReset,
+         ecouteursButtonsChangeBg1,
+         ecouteursButtonsChangeBg2,
+         ecouteursButtonsChangeBg3
+        }

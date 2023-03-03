@@ -1,6 +1,13 @@
-import  { inputStates, definitEcouteurs, ecouteursButtonsPlay, ecouteursButtonsStop }  from  "./ecouteurs.js" ;
 import { height_box_main_center, width_box_main_center } from "../../js/utils/variables.js";
 import { query_selector_root } from "../../js/components/request.queryselector.js";
+import  { inputStates,
+          definitEcouteurs,
+          ecouteursButtonsPlay,
+          ecouteursButtonsStop,
+          ecouteursButtonsChangeBg1,
+          ecouteursButtonsChangeBg2,
+          ecouteursButtonsChangeBg3 }  from  "./ecouteurs.js" ;
+
 
 let ctx;
 
@@ -18,6 +25,7 @@ let drawnMousePos = { x: 0, y: 0 };
 let INSTRUCT = "instruct";
 let PLAY = "play";
 let PAUSE = "pause";
+let RESET = "reset";
 let mode = INSTRUCT;
 
 // Static snake settings
@@ -54,6 +62,7 @@ let canvas;
 let canvasWidth = width_box_main_center - 10; // set the width of the canvas as a global letiable (the width of the canvas)
 let canvasHeight = height_box_main_center; // set the height of the canvas as a global letiable (the height of the canvas)
 let pattern1;
+let pattern2;
 
 let direction = { x: canvasWidth, y: canvasHeight };
 
@@ -92,6 +101,8 @@ export function initCanvas() {
         pattern1 = ctx.createPattern(imageObj, "repeat");
     };
 
+    let imageObjBackground = new Image();
+
     canvas.addEventListener('mousemove', function (evt) {
         if( !mouseLeftPlayingArea)  // Mouse can only move if they stayed in the area.
           mousePos = getMousePos(canvas, evt);
@@ -110,6 +121,28 @@ export function initCanvas() {
         if( mode === PLAY) {
           mode = PAUSE;
         }
+    }, false);
+
+    ecouteursButtonsChangeBg1().addEventListener('click', function (evt) {
+        imageObjBackground.src = "./Snake/assets/image1.jpeg";
+        imageObjBackground.onload = function () {
+            pattern2 = ctx.createPattern(imageObjBackground, "repeat");
+        };
+
+    }, false);
+
+    ecouteursButtonsChangeBg2().addEventListener('click', function (evt) {
+        imageObjBackground.src = "./Snake/assets/image2.jpeg";
+        imageObjBackground.onload = function () {
+            pattern2 = ctx.createPattern(imageObjBackground, "repeat");
+        };
+    }, false);
+
+    ecouteursButtonsChangeBg3().addEventListener('click', function (evt) {
+        imageObjBackground.src = "./Snake/assets/image3.png";
+        imageObjBackground.onload = function () {
+            pattern2 = ctx.createPattern(imageObjBackground, "repeat");
+        };
     }, false);
 
     canvas.addEventListener('mouseleave', function (evt) {
@@ -156,8 +189,11 @@ function animate(timestamp) {
 
     // ADD A NICE BACKGROUND HERE?
 
+    ctx.fillStyle = pattern2;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
     // Draw the mouse
-    drawMouse(20, 100);
+    drawMouse(300, 300);
     let newPos = closePredatorPreyGap();
     drawSnake(newPos.x, newPos.y);
 
