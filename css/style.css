@@ -36,7 +36,7 @@ button {
 
 .nav__link {
   position: fixed;
-  width: 94%;
+  width: 100%;
   top: 5rem;
   left: 18px;
   background-color: lightblue;
@@ -60,6 +60,7 @@ button {
 
 .hide {
   display: none;
+
 }
 
 @media screen and (min-width: 600px) {
@@ -67,7 +68,6 @@ button {
     display: block;
     position: static;
     width: auto;
-    margin-right: 20px;
     background: none;
   }
 

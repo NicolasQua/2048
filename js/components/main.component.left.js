@@ -1,4 +1,5 @@
-import { template_left } from "../template/2048.template.left.js";
+
+const template_left = document.createElement("template");
 
 export class MainComponentLeft extends HTMLElement {
   constructor() {

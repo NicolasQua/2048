@@ -1,3 +1,4 @@
+import { query_selector_center, query_selector_root } from "../../js/components/request.queryselector.js";
 export class Fonctionalities {
 
     static gameOver(ctx, canvasWidth, canvasHeight){                                    // game over (function)
@@ -10,12 +11,31 @@ export class Fonctionalities {
         ctx.lineWidth = 5;                                  // set the width of the stroke
         let centreX = canvasWidth / 2;                      // set the x position of the text
         let centreY = canvasHeight / 2;                     // set the y position of the text
-        ctx.strokeText('Game Over', centreX, centreY - 165);    // draw the text (stroke the text) with the context, the text, the x position and the y position as parameters
-        ctx.fillText('Game Over', centreX, centreY - 165);      // draw the text (fill the text) with the context, the text, the x position and the y position as parameters
+        ctx.strokeText('Game Over', centreX, centreY - 70);    // draw the text (stroke the text) with the context, the text, the x position and the y position as parameters
+        ctx.fillText('Game Over', centreX, centreY - 70);      // draw the text (fill the text) with the context, the text, the x position and the y position as parameters
         ctx.font = 'bold 20px sans-serif';                  // set the font of the text
-        ctx.strokeText('Appuyer sur la touche Entrer pour rejouer', centreX, centreY - 120);    // draw the text (stroke the text) with the context, the text, the x position and the y position as parameters
-        ctx.fillText('Appuyer sur la touche Entrer pour rejouer', centreX, centreY - 120);      // draw the text (fill the text) with the context, the text, the x position and the y position as parameters
+        ctx.strokeText('Appuyer sur le bouton RESET pour rejouer', centreX, centreY);    // draw the text (stroke the text) with the context, the text, the x position and the y position as parameters
+        ctx.fillText('Appuyer sur le bouton RESET pour rejouer', centreX, centreY);      // draw the text (fill the text) with the context, the text, the x position and the y position as parameters
         ctx.restore();                                      // restore the context of the canvas (restore the color of the canvas)
+    }
+
+    static lose(){
+        let center = query_selector_center('#grille');
+        let canvas = document.createElement('canvas');
+
+        canvas.width = center.offsetWidth - 5; 
+        canvas.height = center.offsetHeight - 15; 
+
+        canvas.style.position = 'absolute';
+        canvas.style.display =  'flex';
+        canvas.style.flexDirection = 'column';
+        canvas.style.justifyContent = 'center';
+        canvas.style.alignItems = 'center';
+        canvas.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+        canvas.style.margin = 'auto';
+        let ctx = canvas.getContext('2d');
+        Fonctionalities.gameOver(ctx, canvas.width, canvas.height);
+        center.appendChild(canvas);
     }
 
     static drawScore(ctx, score, canvasWidth, canvasHeight){                                   // draw the score on the canvas (function) with the context and the position as parameters  

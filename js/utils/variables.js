@@ -14,7 +14,7 @@ const height_box_main_left = height_box_main;
 const width_box_main_left = width_box_main / 5;
 
 const height_box_main_right = height_box_main;
-const width_box_main_right = width_box_main_left ;
+const width_box_main_right = height_box_main ;
 
 const height_box_main_center = height_box_main;
 const width_box_main_center = width_box_main -  (width_box_main_left + width_box_main_right);

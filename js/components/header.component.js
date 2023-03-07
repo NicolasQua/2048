@@ -5,14 +5,6 @@ const template = document.createElement('template');
 
 template.innerHTML = `<style>
 
-    .card-header {
-      border-radius: 5px;
-      margin: 5px;
-      margin-top: 5px;
-      height: ${height_box_header / 2}px;
-      width: ${width_box_header}px;
-    }
-
     .name_game {
       font: bold 60px sans-serif;
       text-align: center;
@@ -31,7 +23,6 @@ export class HeaderComponent extends HTMLElement {
     this.div = document.createElement("div");
     this.div.setAttribute("class", "card-header");
     this.shadow.appendChild(this.div);
-    
   }
 
   connectedCallback() {

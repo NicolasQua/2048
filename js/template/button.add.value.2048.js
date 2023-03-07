@@ -16,7 +16,43 @@ template_button_add_value_2048.innerHTML = `<style>
     width: 42px;
     height: 40px;
     margin: 5px;
+    border-radius: 5px;
+    border: 1px solid #999;
+    font-weight: bold;
   }
+
+  #add8 {
+    background-color: rgb(255, 255, 223);
+  }
+
+  #add16 {
+    background-color: rgb(255, 255, 191);
+  }
+
+  #add32 {
+    background-color: rgb(255, 255, 127);
+  }
+
+  #add64 {
+    background-color: rgb(255, 255, 0);
+  }
+
+  #add128 {
+    background-color: rgb(255, 191, 0);
+  }
+
+  #add256 {
+    background-color: rgb(255, 127, 0);
+  }
+
+  #add512 {
+    background-color: rgb(255, 0, 0);
+  }
+
+  #add1024 {
+    background-color: rgb(255, 0, 0);
+  }
+
 </style>
 <div id="add-val">
     <div id="boutons-row-1">

@@ -1,8 +1,8 @@
 import { height_box_main_center, width_box_main_center } from "../utils/variables.js";
 
-const template = document.createElement('template');
+const templateCenter = document.createElement('template');
 
-template.innerHTML = `
+templateCenter.innerHTML = `
 <div id="main">
     <div id="infos">
         <div>Temps : 0</div>
@@ -71,4 +71,4 @@ template.innerHTML = `
 </style>
 `;
 
-export { template }
+export { templateCenter }

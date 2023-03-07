@@ -2,19 +2,7 @@ import { height_box_header, width_box_header } from "../utils/variables.js";
 
 const template = document.createElement('template');
 
-template.innerHTML = `<style>
-
-    .card-footer {
-      border-radius: 5px;
-      margin: 5px;
-      margin-top: 40px;
-      margin-bottom: 5px;
-      height: ${height_box_header - 5}px;
-      width: ${width_box_header - 5}px;
-      background-color: white;
-    }
-</style>
-`;
+template.innerHTML = "";
 
 export class FooterComponent extends HTMLElement {
   constructor() {

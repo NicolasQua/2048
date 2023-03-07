@@ -17,14 +17,14 @@ template_button_play_stop_snake.innerHTML = `<style>
     width: ${width_box_main_left - 100}px;
     height: 50px;
     margin: 5px;
-    margin-top: 20px;
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
 
-  #play-stop {
+  #play-stop, #ajustement {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -71,6 +71,28 @@ template_button_play_stop_snake.innerHTML = `<style>
     border-radius: 50%;
   }
 
+  #play {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  #stop {
+    background-color: #f44336;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
   #bg-image1 {
     background: url(../../Snake/assets/image1.jpeg);
   }
@@ -82,6 +104,35 @@ template_button_play_stop_snake.innerHTML = `<style>
   #bg-image3 {
     background: url(../../Snake/assets/image3.png);
   }
+
+  .sp{
+    margin: 5px;
+  }
+
+  .aj {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 5px;
+    margin-top: 10px;
+    background-color: #f1f1f1;
+  }
+
+  .plus, .moins {
+    width: 25px;
+    height: 20px;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #4CAF50;
+    font-weight: bold;
+    font-size: 20px;
+  }
 </style>
 <div id="play-stop">
     <div id="boutons-row-1">
@@ -89,6 +140,32 @@ template_button_play_stop_snake.innerHTML = `<style>
     </div>
     <div id="boutons-row-2">
         <button class="btn" id="stop">STOP</button>
+    </div>
+</div>
+<div id="ajustement">
+    <div class="aj" id="speedFrequency">
+        <span class="sp">Freq-Accélé :</span>
+        <button class="plus" id="plus-speedFrequency">+</button>
+        <span class="sp" id="speedFrequency-value">0</span>
+        <button class="moins" id="moins-speedFrequency">-</button>
+    </div>
+    <div class="aj" id="accelerationPerSecond">
+        <span class="sp">Accélé : </span>
+        <button class="plus" id="plus-accelerationPerSecond">+</button>
+        <span class="sp" id="accelerationPerSecond-value">0</span>
+        <button class="moins" id="moins-accelerationPerSecond">-</button>
+    </div>
+    <div class="aj" id="angleFrequency">
+        <span class="sp">Freq-Angle :</span>
+        <button class="plus" id="plus-angleFrequency">+</button>
+        <span class="sp" id="angleFrequency-value">0</span>
+        <button class="moins" id="moins-angleFrequency">-</button>
+    </div>
+    <div class="aj" id="maxAngleDeviation">
+        <span class="sp">Max-Angle :</span>
+        <button class="plus" id="plus-maxAngleDeviation">+</button>
+        <span class="sp" id="maxAngleDeviation-value">0</span>
+        <button class="moins" id="moins-maxAngleDeviation">-</button>
     </div>
 </div>
 <div id="btn-bg">

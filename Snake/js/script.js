@@ -1,5 +1,7 @@
 import { height_box_main_center, width_box_main_center } from "../../js/utils/variables.js";
-import { query_selector_root } from "../../js/components/request.queryselector.js";
+import { query_selector_root, query_selector_footer } from "../../js/components/request.queryselector.js";
+import { button_reset } from "../../js/utils/gestionnaire.js";
+import { Fonctionalities } from "./fonctionalities.js";
 import  { inputStates,
           definitEcouteurs,
           ecouteursButtonsPlay,
@@ -7,7 +9,6 @@ import  { inputStates,
           ecouteursButtonsChangeBg1,
           ecouteursButtonsChangeBg2,
           ecouteursButtonsChangeBg3 }  from  "./ecouteurs.js" ;
-
 
 let ctx;
 
@@ -18,14 +19,9 @@ let len = Array.apply(null, Array(20)).map(Number.prototype.valueOf, 10);
 x[0] = 10;
 y[0] = 10;
 
-let mousePos;
-let drawnMousePos = { x: 0, y: 0 };
-
-
 let INSTRUCT = "instruct";
 let PLAY = "play";
 let PAUSE = "pause";
-let RESET = "reset";
 let mode = INSTRUCT;
 
 // Static snake settings
@@ -36,7 +32,7 @@ let headWidth = 10;
 let headLength = 15;
 let tailLength = 50;
 let tailWidth = 10;
-let headColor = "green";
+let headColor = "orange";
 
 // Static mouse settings
 let mouseLength = 10;
@@ -50,13 +46,15 @@ let speedFrequency = 1000; // Frequency of speed change in milliseconds
 let minSnakeSpeed = 1.05; // minimum speed (1 + number of segLengths per frame)
 let maxSnakeSpeed = 1.20; // maximum speed (1 + number of segLengths per frame)
 let accelerationPerSecond = 0.005;
-let angleFrequency = 2000;  // Frequency of angle change in milliseconds
-let maxAngleDeviation = Math.PI/4; // Max deviation from correct angle
+let angleFrequency = 1000;  // Frequency of angle change in milliseconds
+let maxAngleDeviation = 0.9; // Max deviation from correct angle
 
 // Game variables
 let startTime = 0;
 let mouseLeftPlayingArea = false;
 let canvas;
+
+let score = 0;
 
 
 let canvasWidth = width_box_main_center - 10; // set the width of the canvas as a global letiable (the width of the canvas)
@@ -65,6 +63,8 @@ let pattern1;
 let pattern2;
 
 let direction = { x: canvasWidth, y: canvasHeight };
+let drawnMousePos = { x: 0, y: 0};
+let mousePos = { x: Math.round(Math.random() * (canvasWidth - 1)), y: Math.round(Math.random() * (canvasHeight - 1)) };
 
 export function initCanvas() {
     x[0] = 10;
@@ -94,6 +94,7 @@ export function initCanvas() {
     ctx = canvas.getContext('2d');
 
     definitEcouteurs();
+    button_reset();
 
     let imageObj = new Image();
     imageObj.src = "http://www.abm.sk/HTML5/examples/img/snakePattern.png";
@@ -103,10 +104,10 @@ export function initCanvas() {
 
     let imageObjBackground = new Image();
 
-    canvas.addEventListener('mousemove', function (evt) {
-        if( !mouseLeftPlayingArea)  // Mouse can only move if they stayed in the area.
-          mousePos = getMousePos(canvas, evt);
-    }, false);
+    // canvas.addEventListener('mousemove', function (evt) {
+    //     if( !mouseLeftPlayingArea)  // Mouse can only move if they stayed in the area.
+    //       mousePos = getMousePos(canvas, evt);
+    // }, false);
 
     ecouteursButtonsPlay().addEventListener('click', function (evt) {
         if( mode === INSTRUCT || mode === PAUSE) {
@@ -145,12 +146,10 @@ export function initCanvas() {
         };
     }, false);
 
-    canvas.addEventListener('mouseleave', function (evt) {
-        mouseLeftPlayingArea = true;
-    });
-
+    // canvas.addEventListener('mouseleave', function (evt) {
+    //     mouseLeftPlayingArea = true;
+    // });
     drawInstructions();
-
 };
 
 function getMousePos(canvas, evt) {
@@ -168,24 +167,25 @@ function getCurrentTime() {
 }
 
 function drawInstructions() {
-    let line = 1;
-    let lineHeight = 20;
-    let margin = 10;
-
     // ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    ctx.font = "bold 15px Georgia";
-    ctx.fillText('Welcome to "Eat the Mouse"', margin, margin + line++ * lineHeight);
+    ctx.font = "bold 30px Georgia";
+    // ctx.fillStyle = 'orange';
+    ctx.strokeStyle = 'black';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    let centreX = canvasWidth / 2;
+    let centreY = canvasHeight / 2;
+    ctx.strokeText('Welcome to "Eat the Mouse"', centreX, centreY - 70);
+    ctx.fillText('Welcome to "Eat the Mouse"', centreX, centreY - 70);
     ctx.font = "15px Georgia";
-    ctx.fillText('Click play to start.', margin, margin + line++ * lineHeight);
-}
-
-function drawResults() {
-
+    ctx.fillText('Click play to start.', centreX, centreY);
 }
 
 function animate(timestamp) {
     currentTime = getCurrentTime();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    query_selector_footer("[id='score']").innerHTML = score;
 
     // ADD A NICE BACKGROUND HERE?
 
@@ -193,7 +193,7 @@ function animate(timestamp) {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Draw the mouse
-    drawMouse(300, 300);
+    drawMouse(mousePos.x, mousePos.y);
     let newPos = closePredatorPreyGap();
     drawSnake(newPos.x, newPos.y);
 
@@ -204,8 +204,9 @@ function animate(timestamp) {
         requestAnimationFrame(animate);
     else if (mode === PAUSE)
         drawInstructions();
-    else
-        drawResults();
+    else {
+        Fonctionalities.gameOver(ctx, canvasWidth, canvasHeight);
+    }
 }
 
 function setNewDirection(){
@@ -283,29 +284,24 @@ function closePredatorPreyGap() {
     }
     else if (ppDist <= segLength) {
         // The mouse is caught!
-        mode = INSTRUCT;
+        mode = PLAY;
         newX = drawnMousePos.x;
         newY = drawnMousePos.y;
+        mousePos.x = Math.round(Math.random() * (canvasWidth - 1));
+        mousePos.y = Math.round(Math.random() * (canvasHeight - 1));
+        score += 1;
     }else {
         newSpeed = oscillateValue(speedFrequency, 0, minSnakeSpeed, maxSnakeSpeed);
         newSpeed += (currentTime - startTime) / 1000 * accelerationPerSecond;      // Increase speed over time.
-        ppAngle = oscillateValue(angleFrequency, 0, ppAngle - maxAngleDeviation, ppAngle + maxAngleDeviation);
         if (inputStates.gauche) {
             direction = setNewDirection();
-            ppAngle -= Math.PI / 6;
+            ppAngle -= Math.PI / 2;
         }
         if (inputStates.droite) {
             direction = setNewDirection();
-            ppAngle += Math.PI / 6;
+            ppAngle += Math.PI / 2;
         }
-        if (inputStates.haut) {
-            direction = setNewDirection();
-            ppAngle -= Math.PI / 6;
-        }
-        if (inputStates.bas) {
-            direction = setNewDirection();
-            ppAngle += Math.PI / 6;
-        }
+        ppAngle = oscillateValue(angleFrequency, 0, ppAngle - maxAngleDeviation, ppAngle + maxAngleDeviation);
         newX = x[0] + Math.cos(ppAngle) * (segLength * newSpeed);
         newY = y[0] + Math.sin(ppAngle) * (segLength * newSpeed);
     }

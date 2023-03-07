@@ -3,28 +3,32 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choix du jeu</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="Snake/css/style.css">
-    <script type="module" src="js/script.js"></script>
-
+    <title>Login</title>
+    <link rel="stylesheet" href="css/logStyle.css">
 </head>
 
 <body>
-    <nav class="nav">
-        <a href="#">home</a>
-      <div class="nav__link hide">
-        <button id="__2048__" href="">2048</button>
-        <button id="__snake__" href="">Snake</button>
-        <a href="#">Login</a>
-      </div>
-    </nav>
 
-    <main>
-      <div class="container">
-        <home-component></home-component>
-      </div>
-    </main>
+    <div class="box">
+      <form autocomplete="off">
+        <h2>Sign in</h2>
+        <div class="inputBox">
+          <input type="text" required="required">
+          <span>Userame</span>
+          <i></i>
+        </div>
+        <div class="inputBox">
+          <input type="password" required="required">
+          <span>Password</span>
+          <i></i>
+        </div>
+        <div class="links">
+          <a href="#">Forgot Password ?</a>
+          <a href="#">Signup</a>
+        </div>
+        <a type="submit" value="Login" href="./pageAcceuil.html">Login</a>
+      </form>
+    </div>
 </body>
 </html>
 

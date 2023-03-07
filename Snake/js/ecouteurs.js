@@ -1,4 +1,4 @@
-import { query_selector_left } from "../../js/components/request.queryselector.js";
+import { query_selector_footer, query_selector_left } from "../../js/components/request.queryselector.js";
 
 let inputStates = {};
 
@@ -76,14 +76,6 @@ function ecouteursButtonsStop (){
     return button;
 }
 
-function ecouteursButtonsReset (){
-    let selector = `[id='reset']`;
-    let button = query_selector_left(selector);
-    if (button === null)
-        return;
-    return button;
-}
-
 function ecouteursButtonsChangeBg1 (){
     let selector = `[id='bg-image1']`;
     let button = query_selector_left(selector);
@@ -103,6 +95,14 @@ function ecouteursButtonsChangeBg2 (){
 function ecouteursButtonsChangeBg3 (){
     let selector = `[id='bg-image3']`;
     let button = query_selector_left(selector);
+    if (button === null)
+        return;
+    return button;
+}
+
+function ecouteursButtonsReset (){
+    let selector = `[id='reset']`;
+    let button = query_selector_footer(selector);
     if (button === null)
         return;
     return button;

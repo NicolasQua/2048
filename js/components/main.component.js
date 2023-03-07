@@ -2,15 +2,14 @@ import { height_box_main, width_box_main, width_box_home } from "../utils/variab
 
 const template = document.createElement('template');
 
-template.innerHTML = `<style>
-  .card-main {
-    display: flex;
-    border-radius: 5px;
-    margin: 5px;
-    height: ${height_box_main}px;
-    width: ${width_box_home - 10}px;
-    background-color: #ddd;
-  }
+template.innerHTML = `
+<style>
+.card-main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 </style>
 <main-component-left></main-component-left>
 <main-component-center></main-component-center>

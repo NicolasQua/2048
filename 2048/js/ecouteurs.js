@@ -1,9 +1,5 @@
 import {genereTuile} from "./utils.js";
-import { init } from "../../2048/js/script.js";
-import  {initCanvas}  from "../../Snake/js/script.js";
-import { template } from "../../js/template/2048.template.js";
 import { query_selector_left } from "../../js/components/request.queryselector.js";
-import gestionnaire from "../../js/utils/gestionnaire.js";
 
 let depl = [0, 0];
 
@@ -58,20 +54,4 @@ function ecouteursButtons (grille){
     }
 }
 
-function button_nav_bar() {
-    let button_2048 = document.getElementById("__2048__");
-    button_2048.addEventListener("click", function() {
-        query_selector_left(".card-main-left").innerHTML = "";
-        let shadow_root = gestionnaire("2048");
-        shadow_root.appendChild(template.content.cloneNode(true));
-        init();
-    });
-    let button_snake = document.getElementById("__snake__");
-    button_snake.addEventListener("click", function() {
-        query_selector_left(".card-main-left").innerHTML = "";
-        gestionnaire("SNAKE");
-        initCanvas();
-    });
-}
-
-export {ecouteursClavier, depl, ecouteursButtons, button_nav_bar};
+export {ecouteursClavier, depl, ecouteursButtons};

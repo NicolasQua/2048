@@ -1,7 +1,18 @@
-
+import { height_box_header, width_box_main_left, width_box_main_center } from "../utils/variables.js";
 const template_button_reset_score = document.createElement('template');
 
 template_button_reset_score.innerHTML = `<style>
+
+.card-footer {
+    border-radius: 5px;
+    margin: 5px;
+    justify-content: center;
+	align-items: center;
+    height: ${height_box_header - 50}px;
+    width: ${width_box_main_left * 2 + width_box_main_center - 5}px;
+    background-color: white;
+  }
+
   .btn {
     width: 140px;
     height: 50px;
@@ -49,6 +60,14 @@ template_button_reset_score.innerHTML = `<style>
 
     }
 
+    #reset {
+        background-color: #ddd;
+        border-radius: 5px;
+        padding: 5px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
 </style>
 <div id="score-reset">
     <div id="boutons-score">
@@ -56,10 +75,9 @@ template_button_reset_score.innerHTML = `<style>
         <span id="score"></span>
     </div>
     <div id="boutons-reset">
-        <button class="btn">RESET</button>
+        <button id="reset" class="btn">RESET</button>
     </div>
 </div>
-
 `;
 
 export { template_button_reset_score }
