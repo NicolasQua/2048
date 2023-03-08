@@ -121,7 +121,7 @@ template_button_play_stop_snake.innerHTML = `<style>
     background-color: #f1f1f1;
   }
 
-  .plus, .moins {
+  .change {
     width: 25px;
     height: 20px;
     margin: 5px;
@@ -144,28 +144,28 @@ template_button_play_stop_snake.innerHTML = `<style>
 </div>
 <div id="ajustement">
     <div class="aj" id="speedFrequency">
-        <span class="sp">Freq-Accélé :</span>
-        <button class="plus" id="plus-speedFrequency">+</button>
-        <span class="sp" id="speedFrequency-value">0</span>
-        <button class="moins" id="moins-speedFrequency">-</button>
+        <span class="sp">Fq-Acc :</span>
+        <button class="change" id="plus-speedFrequency">+</button>
+        <span class="sp val" id="speedFrequency-value">0</span>
+        <button class="change" id="moins-speedFrequency">-</button>
     </div>
     <div class="aj" id="accelerationPerSecond">
-        <span class="sp">Accélé : </span>
-        <button class="plus" id="plus-accelerationPerSecond">+</button>
-        <span class="sp" id="accelerationPerSecond-value">0</span>
-        <button class="moins" id="moins-accelerationPerSecond">-</button>
+        <span class="sp">Vitess : </span>
+        <button class="change" id="plus-accelerationPerSecond">+</button>
+        <span class="sp val" id="accelerationPerSecond-value">0</span>
+        <button class="change" id="moins-accelerationPerSecond">-</button>
     </div>
     <div class="aj" id="angleFrequency">
-        <span class="sp">Freq-Angle :</span>
-        <button class="plus" id="plus-angleFrequency">+</button>
-        <span class="sp" id="angleFrequency-value">0</span>
-        <button class="moins" id="moins-angleFrequency">-</button>
+        <span class="sp">Fq-Ang :</span>
+        <button class="change" id="plus-angleFrequency">+</button>
+        <span class="sp val" id="angleFrequency-value">0</span>
+        <button class="change" id="moins-angleFrequency">-</button>
     </div>
     <div class="aj" id="maxAngleDeviation">
-        <span class="sp">Max-Angle :</span>
-        <button class="plus" id="plus-maxAngleDeviation">+</button>
-        <span class="sp" id="maxAngleDeviation-value">0</span>
-        <button class="moins" id="moins-maxAngleDeviation">-</button>
+        <span class="sp">Mx-Ang :</span>
+        <button class="change" id="plus-maxAngleDeviation">+</button>
+        <span class="sp val" id="maxAngleDeviation-value">0</span>
+        <button class="change" id="moins-maxAngleDeviation">-</button>
     </div>
 </div>
 <div id="btn-bg">

@@ -1,14 +1,16 @@
 import { height_box_main_center, width_box_main_center } from "../../js/utils/variables.js";
-import { query_selector_root, query_selector_footer } from "../../js/components/request.queryselector.js";
+import { query_selector_root, query_selector_footer, query_selector_left_all, query_selector_left } from "../../js/components/request.queryselector.js";
 import { button_reset } from "../../js/utils/gestionnaire.js";
 import { Fonctionalities } from "./fonctionalities.js";
-import  { inputStates,
-          definitEcouteurs,
-          ecouteursButtonsPlay,
-          ecouteursButtonsStop,
-          ecouteursButtonsChangeBg1,
-          ecouteursButtonsChangeBg2,
-          ecouteursButtonsChangeBg3 }  from  "./ecouteurs.js" ;
+import {
+    inputStates,
+    definitEcouteurs,
+    ecouteursButtonsPlay,
+    ecouteursButtonsStop,
+    ecouteursButtonsChangeBg1,
+    ecouteursButtonsChangeBg2,
+    ecouteursButtonsChangeBg3
+} from "./ecouteurs.js";
 
 let ctx;
 
@@ -16,8 +18,6 @@ let ctx;
 let x = Array.apply(null, Array(10)).map(Number.prototype.valueOf, 0);
 let y = Array.apply(null, Array(10)).map(Number.prototype.valueOf, 0);
 let len = Array.apply(null, Array(20)).map(Number.prototype.valueOf, 10);
-x[0] = 10;
-y[0] = 10;
 
 let INSTRUCT = "instruct";
 let PLAY = "play";
@@ -55,6 +55,7 @@ let mouseLeftPlayingArea = false;
 let canvas;
 
 let score = 0;
+let succes = 0;
 
 
 let canvasWidth = width_box_main_center - 10; // set the width of the canvas as a global letiable (the width of the canvas)
@@ -63,12 +64,11 @@ let pattern1;
 let pattern2;
 
 let direction = { x: canvasWidth, y: canvasHeight };
-let drawnMousePos = { x: 0, y: 0};
+let drawnMousePos = { x: 0, y: 0 };
 let mousePos = { x: Math.round(Math.random() * (canvasWidth - 1)), y: Math.round(Math.random() * (canvasHeight - 1)) };
 
 export function initCanvas() {
-    x[0] = 10;
-    y[0] = 10;
+
     direction = { x: canvasWidth, y: canvasHeight };
     canvas = document.createElement('canvas'); // create the canvas element (the canvas)
     canvas.width = canvasWidth; // set the width of the canvas
@@ -93,8 +93,10 @@ export function initCanvas() {
 
     ctx = canvas.getContext('2d');
 
+    initValues();
     definitEcouteurs();
     button_reset();
+    updateValues();
 
     let imageObj = new Image();
     imageObj.src = "http://www.abm.sk/HTML5/examples/img/snakePattern.png";
@@ -110,17 +112,17 @@ export function initCanvas() {
     // }, false);
 
     ecouteursButtonsPlay().addEventListener('click', function (evt) {
-        if( mode === INSTRUCT || mode === PAUSE) {
-          mode = PLAY;
-          startTime = getCurrentTime();
-          mouseLeftPlayingArea = false;
-          requestAnimationFrame(animate);
+        if (mode === INSTRUCT || mode === PAUSE) {
+            mode = PLAY;
+            startTime = getCurrentTime();
+            mouseLeftPlayingArea = false;
+            requestAnimationFrame(animate);
         }
     }, false);
 
     ecouteursButtonsStop().addEventListener('click', function (evt) {
-        if( mode === PLAY) {
-          mode = PAUSE;
+        if (mode === PLAY) {
+            mode = PAUSE;
         }
     }, false);
 
@@ -128,6 +130,7 @@ export function initCanvas() {
         imageObjBackground.src = "./Snake/assets/image1.jpeg";
         imageObjBackground.onload = function () {
             pattern2 = ctx.createPattern(imageObjBackground, "repeat");
+            ctx.fillStyle = pattern2;
         };
 
     }, false);
@@ -136,6 +139,7 @@ export function initCanvas() {
         imageObjBackground.src = "./Snake/assets/image2.jpeg";
         imageObjBackground.onload = function () {
             pattern2 = ctx.createPattern(imageObjBackground, "repeat");
+            ctx.fillStyle = pattern2;
         };
     }, false);
 
@@ -143,6 +147,7 @@ export function initCanvas() {
         imageObjBackground.src = "./Snake/assets/image3.png";
         imageObjBackground.onload = function () {
             pattern2 = ctx.createPattern(imageObjBackground, "repeat");
+            ctx.fillStyle = pattern2;
         };
     }, false);
 
@@ -150,7 +155,23 @@ export function initCanvas() {
     //     mouseLeftPlayingArea = true;
     // });
     drawInstructions();
+    makeValues();
 };
+
+function initValues() {
+    x = Array.apply(null, Array(10)).map(Number.prototype.valueOf, 0);
+    y = Array.apply(null, Array(10)).map(Number.prototype.valueOf, 0);
+    len = Array.apply(null, Array(20)).map(Number.prototype.valueOf, 10);
+    x[0] = 10;
+    y[0] = 10;
+    score = 0;
+    speedFrequency = 1000; // Frequency of speed change in milliseconds
+    minSnakeSpeed = 1.05; // minimum speed (1 + number of segLengths per frame)
+    maxSnakeSpeed = 1.20; // maximum speed (1 + number of segLengths per frame)
+    accelerationPerSecond = 0.005;
+    angleFrequency = 1000;  // Frequency of angle change in milliseconds
+    maxAngleDeviation = 0.0; // Max deviation from correct angle
+}
 
 function getMousePos(canvas, evt) {
     // necessary to take into account CSS boundaries
@@ -181,14 +202,97 @@ function drawInstructions() {
     ctx.fillText('Click play to start.', centreX, centreY);
 }
 
+function makeValues(){
+    let allVal =  query_selector_left_all("[class='sp val']");
+    allVal.forEach(element => {
+        switch (element.id) {
+            case 'speedFrequency-value':
+                element.innerHTML = speedFrequency;
+                break;
+            case 'accelerationPerSecond-value':
+                element.innerHTML = accelerationPerSecond;
+                break;
+            case 'angleFrequency-value':
+                element.innerHTML = angleFrequency;
+                break;
+            case 'maxAngleDeviation-value':
+                element.innerHTML = maxAngleDeviation;
+                break;
+            default:
+                break;
+        }
+    });
+}
+
+function updateValues(){
+    let allVal =  query_selector_left_all("[class='change']");
+    allVal.forEach(element => {
+        element.addEventListener('click', function (evt) {
+            switch (element.id) {
+                case 'plus-speedFrequency':
+                    if (speedFrequency < 10000){
+                        speedFrequency += 1000;
+                        query_selector_left("[id='speedFrequency-value']").innerHTML = speedFrequency;
+                    }
+                    break;
+                case 'moins-speedFrequency':
+                    if (speedFrequency > 1000){
+                        speedFrequency -= 1000;
+                        query_selector_left("[id='speedFrequency-value']").innerHTML = speedFrequency;
+                    }
+                    break;
+                case 'plus-accelerationPerSecond':
+                    if (accelerationPerSecond < 0.1){
+                        accelerationPerSecond += 0.005;
+                        query_selector_left("[id='accelerationPerSecond-value']").innerHTML = accelerationPerSecond.toFixed(3);
+                    }
+                    break;
+                case 'moins-accelerationPerSecond':
+                    if (accelerationPerSecond > 0.005){
+                        accelerationPerSecond -= 0.005;
+                        query_selector_left("[id='accelerationPerSecond-value']").innerHTML = accelerationPerSecond.toFixed(3);
+                    }
+                    break;
+                case 'plus-angleFrequency':
+                    if (angleFrequency < 10000){
+                        angleFrequency += 1000;
+                        query_selector_left("[id='angleFrequency-value']").innerHTML = angleFrequency;
+                    }
+                    break;
+                case 'moins-angleFrequency':
+                    if (angleFrequency > 1000){
+                        angleFrequency -= 1000;
+                        query_selector_left("[id='angleFrequency-value']").innerHTML = angleFrequency;
+                    }
+                    break;
+                case 'plus-maxAngleDeviation':
+                    if (maxAngleDeviation < 1.5){
+                        maxAngleDeviation += 0.1;
+                        query_selector_left("[id='maxAngleDeviation-value']").innerHTML = maxAngleDeviation.toFixed(2);
+                    }
+                    break;
+                case 'moins-maxAngleDeviation':
+                    if (maxAngleDeviation >= 0.0){
+                        maxAngleDeviation -= 0.1;
+                        query_selector_left("[id='maxAngleDeviation-value']").innerHTML = maxAngleDeviation.toFixed(2);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        });
+    });
+
+}
+
 function animate(timestamp) {
     currentTime = getCurrentTime();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     query_selector_footer("[id='score']").innerHTML = score;
+    query_selector_footer("[id='success']").innerHTML = succes;
 
     // ADD A NICE BACKGROUND HERE?
-
     ctx.fillStyle = pattern2;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -209,55 +313,55 @@ function animate(timestamp) {
     }
 }
 
-function setNewDirection(){
-    let newDirection = { x: x[0], y:  y[0] };
-    if (y[0] === y[1]){
-        if (x[0] > x[1]){
-            while(newDirection.x < canvasWidth){
+function setNewDirection() {
+    let newDirection = { x: x[0], y: y[0] };
+    if (y[0] === y[1]) {
+        if (x[0] > x[1]) {
+            while (newDirection.x < canvasWidth) {
                 newDirection.x++;
             }
         } else {
-            while(newDirection.x > 0){
+            while (newDirection.x > 0) {
                 newDirection.x--;
             }
         }
         return newDirection;
     }
-    if (x[0] === x[1]){
-        if (y[0] > y[1]){
-            while(newDirection.y < canvasHeight){
+    if (x[0] === x[1]) {
+        if (y[0] > y[1]) {
+            while (newDirection.y < canvasHeight) {
                 newDirection.y++;
             }
         } else {
-            while(newDirection.y > 0){
+            while (newDirection.y > 0) {
                 newDirection.y--;
             }
         }
         return newDirection;
     }
-    if (x[0] > x[1] && y[0] > y[1]){
-        while(newDirection.x < canvasWidth && newDirection.y < canvasHeight){
+    if (x[0] > x[1] && y[0] > y[1]) {
+        while (newDirection.x < canvasWidth && newDirection.y < canvasHeight) {
             newDirection.x++;
             newDirection.y++;
         }
         return newDirection;
     }
-    if (x[0] > x[1] && y[0] < y[1]){
-        while(newDirection.x < canvasWidth && newDirection.y > 0){
+    if (x[0] > x[1] && y[0] < y[1]) {
+        while (newDirection.x < canvasWidth && newDirection.y > 0) {
             newDirection.x++;
             newDirection.y--;
         }
         return newDirection;
     }
-    if (x[0] < x[1] && y[0] > y[1]){
-        while(newDirection.x > 0 && newDirection.y < canvasHeight){
+    if (x[0] < x[1] && y[0] > y[1]) {
+        while (newDirection.x > 0 && newDirection.y < canvasHeight) {
             newDirection.x--;
             newDirection.y++;
         }
         return newDirection;
     }
-    if (x[0] < x[1] && y[0] < y[1]){
-        while(newDirection.x > 0 && newDirection.y > 0){
+    if (x[0] < x[1] && y[0] < y[1]) {
+        while (newDirection.x > 0 && newDirection.y > 0) {
             newDirection.x--;
             newDirection.y--;
         }
@@ -290,7 +394,8 @@ function closePredatorPreyGap() {
         mousePos.x = Math.round(Math.random() * (canvasWidth - 1));
         mousePos.y = Math.round(Math.random() * (canvasHeight - 1));
         score += 1;
-    }else {
+        succes += 1;
+    } else {
         newSpeed = oscillateValue(speedFrequency, 0, minSnakeSpeed, maxSnakeSpeed);
         newSpeed += (currentTime - startTime) / 1000 * accelerationPerSecond;      // Increase speed over time.
         if (inputStates.gauche) {

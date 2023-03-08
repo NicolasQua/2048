@@ -2,7 +2,7 @@ import Tuile from "./tuile.js";
 import {ecouteursClavier} from "./ecouteurs.js";
 import {fusion} from './fusion.js'
 import { randomTileValue, create2DArray, genereTuile } from "./utils.js";
-import { query_selector_center, query_selector_center_all, query_selector_footer } from "../../js/components/request.queryselector.js";
+import { query_selector_center, query_selector_center_all, query_selector_footer, query_selector_left_all } from "../../js/components/request.queryselector.js";
 
 export default class Grille {
 
@@ -51,6 +51,14 @@ export default class Grille {
             }
         }
         genereTuile(2, randomTileValue(), this);
+    }
+
+    updateSuccess(value) {
+        let allSuccess = query_selector_left_all("[class='succes']");
+        allSuccess.forEach((success) => {
+            if (success.id == value)
+                success.innerHTML = parseInt(success.innerHTML) + 1;
+        });
     }
 
     updateAffichage() {

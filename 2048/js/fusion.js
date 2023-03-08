@@ -10,8 +10,10 @@ function fusion(depl, grille, verification) {
                         if (!verification) {
                             grille.tabTuiles[l][c].val = grille.tabTuiles[l][c].val*2;
                             grille.tabTuiles[l][c+1].val = 0;
-                            if (grille.tabTuiles[l][c].triche == false && grille.tabTuiles[l][c+1].triche == false)
+                            if (grille.tabTuiles[l][c].triche == false && grille.tabTuiles[l][c+1].triche == false){
                                 grille.score += grille.tabTuiles[l][c].val;
+                                grille.updateSuccess(grille.tabTuiles[l][c].val);
+                            }
                             else
                                 grille.tabTuiles[l][c].triche = true;
                         }
@@ -26,8 +28,10 @@ function fusion(depl, grille, verification) {
                         if (!verification) {
                             grille.tabTuiles[l][c].val = grille.tabTuiles[l][c].val*2;
                             grille.tabTuiles[l][c-1].val = 0;
-                            if (grille.tabTuiles[l][c].triche == false && grille.tabTuiles[l][c-1].triche == false)
+                            if (grille.tabTuiles[l][c].triche == false && grille.tabTuiles[l][c-1].triche == false){
                                 grille.score += grille.tabTuiles[l][c].val;
+                                grille.updateSuccess(grille.tabTuiles[l][c].val);
+                            }
                             else
                                 grille.tabTuiles[l][c].triche = true;
 

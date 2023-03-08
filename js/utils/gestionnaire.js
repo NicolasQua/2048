@@ -31,11 +31,14 @@ function gestionnaire(name, bool){
     }
     component_left.appendChild(template_left.content.cloneNode(true));
     let score_ = query_selector_footer("[id='score']");
+    let success = query_selector_footer("[id='success']");
+    if (score_ !== null)
+        score_.innerHTML = "0";
+    if (success !== null && name !== name_game.innerHTML)
+        success.innerHTML = "0";
     if (name == "2048") {
         name_game.innerHTML = "2048";
         name_game.style.color = "white";
-        if (score_)
-            score_.innerHTML = "0";
         if (add_button.innerHTML === "")
             add_button.appendChild(template_button_add_value_2048.content.cloneNode(true));
         if (regle.innerHTML === "")
@@ -44,8 +47,6 @@ function gestionnaire(name, bool){
     else if (name == "SNAKE"){
         name_game.innerHTML = "SNAKE";
         name_game.style.color = "white";
-        if (score_)
-            score_.innerHTML = "0";
         if (add_button.innerHTML === "")
             add_button.appendChild(template_button_play_stop_snake.content.cloneNode(true));
         if (regle.innerHTML === "")

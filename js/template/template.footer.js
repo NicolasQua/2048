@@ -32,7 +32,7 @@ template_button_reset_score.innerHTML = `<style>
     width: 100%;
   }
 
-    #boutons-score {
+    #boutons-score, #boutons-success {
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -48,7 +48,7 @@ template_button_reset_score.innerHTML = `<style>
         width: 100%;
     }
 
-    #score {
+    #score, #success {
         font-size: 30px;
         font-weight: bold;
         color: #000;
@@ -72,7 +72,11 @@ template_button_reset_score.innerHTML = `<style>
 <div id="score-reset">
     <div id="boutons-score">
         <button class="btn">SCORE :</button>
-        <span id="score"></span>
+        <span id="score">0</span>
+    </div>
+    <div id="boutons-success">
+        <button class="btn">SUCCESS :</button>
+        <span id="success">0</span>
     </div>
     <div id="boutons-reset">
         <button id="reset" class="btn">RESET</button>
