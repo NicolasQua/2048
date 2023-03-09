@@ -12,6 +12,17 @@ regle_snake.innerHTML = `<style>
     background-color: white;
   }
 </style>
+
+<div class="card-main-right">
+  <div class="card-main-right-title">
+    <h2>Règles du jeu</h2>
+  </div>
+  <div class="card-main-right-content">
+    <p>Le but du jeu est de faire grandir le serpent.</p>
+    <p>Le serpent grandit en mangeant des pommes.</p>
+    <p>Le serpent se déplace dans la direction choisie par le joueur.</p>
+    <p>Le joueur a perdu lorsqu'il touche un mur.</p>
+  </div>
 `;
 
 export { regle_snake }
