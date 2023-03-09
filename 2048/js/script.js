@@ -1,5 +1,5 @@
 import Grille from './grille.js';
-import { ecouteursClavier, depl, ecouteursButtons } from './ecouteurs.js';
+import { ecouteursClavier, depl, ecouteursButtons, ecouteurChangeSize } from './ecouteurs.js';
 import { deplacement } from './deplacement.js';
 import { fusion } from './fusion.js';
 import { randomTileValue, genereTuile } from './utils.js';
@@ -11,9 +11,9 @@ let grille;
 
 let bool;
 
-function init() {
+function init(size) {
     bool = false;
-    grille = new Grille(4, 4);
+    grille = new Grille(size, size);
     grille.afficherTuiles();
     ecouteursClavier();
     button_reset();

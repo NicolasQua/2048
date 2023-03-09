@@ -1,4 +1,7 @@
+import { query_selector_left, query_selector_center } from "../../js/components/request.queryselector.js";
 import Tuile from "./tuile.js";
+import { createGrid } from "../../js/utils/gestionnaire.js";
+import { init } from "./script.js"
 
 function randomTileValue() {
     let tmp = Math.random(); 
@@ -33,6 +36,14 @@ function genereTuile(nbr, val, grille) {
     }
 }
 
+function changeSize(val) {
+
+    let size = val * val;
+    query_selector_center("#grilles").innerHTML = "";
+    createGrid(size);
+    init(val);
+}
 
 
-export { randomTileValue, create2DArray, genereTuile};
+
+export { randomTileValue, create2DArray, genereTuile, changeSize};

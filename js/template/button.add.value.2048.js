@@ -21,35 +21,35 @@ template_button_add_value_2048.innerHTML = `<style>
     font-weight: bold;
   }
 
-  #add8 {
+  #add8, #_1, #_9 {
     background-color: rgb(255, 255, 223);
   }
 
-  #add16 {
+  #add16 , #_2 {
     background-color: rgb(255, 255, 191);
   }
 
-  #add32{
+  #add32, #_4 {
     background-color: rgb(255, 255, 127);
   }
 
-  #add64, #_2048  {
+  #add64, #_2048 , #_8 {
     background-color: rgb(255, 255, 0);
   }
 
-  #add128 {
+  #add128 , #_7 {
     background-color: rgb(255, 191, 0);
   }
 
-  #add256, #_256 {
+  #add256, #_256, #_6 {
     background-color: rgb(255, 127, 0);
   }
 
-  #add512, #_512 {
+  #add512, #_512 , #_5 {
     background-color: rgb(255, 0, 0);
   }
 
-  #add1024, #_1024 {
+  #add1024, #_1024 , #_3 {
     background-color: rgb(255, 0, 0);
   }
 
@@ -85,6 +85,38 @@ template_button_add_value_2048.innerHTML = `<style>
     padding: 5px;
   }
 
+  #change-taille, .ch {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    margin-left: 10px;
+  }
+
+  table {
+    border: 2px solid black;
+  }
+
+  td {
+    border: 1px solid black;
+    text-align: center;
+    font-size: 8px;
+  }
+
+  .change {
+    width: 25px;
+    height: 20px;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #4CAF50;
+    font-weight: bold;
+    font-size: 20px;
+  }
+
 </style>
 <div id="add-val">
     <div id="boutons-row-1">
@@ -118,6 +150,25 @@ template_button_add_value_2048.innerHTML = `<style>
         <div class="btn-s" id="_2048">SUCCESS[2048]:</div>
         <span class="succes" id="2048">0</span>
     </div>
+</div>
+
+<div id="change-taille">
+  <div class="ch">
+    <table>
+    <tr> <td id="_1">8</td> <td id="_2">16</td> <td id="_3">124</td> </tr>
+    <tr> <td id="_4">32</td> <td id="_5">512</td> <td id="_6">256</td> </tr>
+    <tr> <td id="_7">128</td> <td id="_8">2048</td> <td id="_9">8</td> </tr>
+    </table>
+  </div>
+  <div class="ch">
+    <button class="change" id="plus">+</button>
+    <span class="sp val" id="row">4</span>
+    <span class="sp" id="size">x</span>
+    <span class="sp val" id="col">4</span>
+    <button class="change" id="moins">-</button>
+  </div>
 </div>`;
 
 export { template_button_add_value_2048 }
+
+

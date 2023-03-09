@@ -2,7 +2,7 @@ import { template_button_add_value_2048 } from "../template/button.add.value.204
 import { template_button_play_stop_snake } from "../template/button.play.stop.snake.js";
 import { template_left } from "../template/2048.template.left.js";
 import { initCanvas } from "../../Snake/js/script.js";
-import  { templateCenter } from "../template/2048.template.js";
+import { templateCenter } from "../template/2048.template.js";
 import { init } from "../../2048/js/script.js";
 import { template_button_reset_score } from "../template/template.footer.js";
 import { query_selector_header,
@@ -10,11 +10,40 @@ import { query_selector_header,
          query_selector_left_root,
          query_selector_left,
          query_selector_footer,
-         query_selector_right} from "../components/request.queryselector.js";
+         query_selector_right,
+         query_selector_center} from "../components/request.queryselector.js";
 import { regle_2048 } from "../template/regle.2048.js";
 import { regle_snake } from "../template/regle.snake.js";
+import { ecouteurChangeSize } from "../../2048/js/ecouteurs.js";
+import { templateCenterStyle4 } from "../template/2048.template.style4.js";
+import { templateCenterStyle5 } from "../template/2048.template.style5.js";
+import { templateCenterStyle6 } from "../template/2048.template.style6.js";
+import { templateCenterStyle7 } from "../template/2048.template.style7.js";
 
-
+function createGrid(val){
+    for (let i = 0; i < val; i++) {
+      const div = document.createElement("div");
+      div.setAttribute("id", i);
+      div.setAttribute("class", "grille");
+      query_selector_center("#grilles").appendChild(div);
+    }
+    switch (val) {
+        case 16:
+            query_selector_root().appendChild(templateCenterStyle4.content.cloneNode(true));
+            break;
+        case 25:
+            query_selector_root().appendChild(templateCenterStyle5.content.cloneNode(true));
+            break;
+        case 36:
+            query_selector_root().appendChild(templateCenterStyle6.content.cloneNode(true));
+            break;
+        case 49:
+            query_selector_root().appendChild(templateCenterStyle7.content.cloneNode(true));
+            break;
+        default:
+            break;
+    }
+}
 
 function gestionnaire(name, bool){
 
@@ -67,7 +96,10 @@ function button_nav_bar() {
         query_selector_right(".card-main-right").innerHTML = "";
         let shadow_root = gestionnaire("2048", false);
         shadow_root.appendChild(templateCenter.content.cloneNode(true));
-        init();
+        shadow_root.appendChild(templateCenterStyle4.content.cloneNode(true));
+        createGrid(16);
+        init(4);
+        ecouteurChangeSize();
         query_selector_footer("[id='reset']").setAttribute("name", "2048");
     });
     let button_snake = document.getElementById("__snake__");
@@ -92,7 +124,10 @@ function button_reset(bool) {
             query_selector_root().innerHTML = "";
             let shadow_root = gestionnaire("2048", bool);
             shadow_root.appendChild(templateCenter.content.cloneNode(true));
-            init();
+            shadow_root.appendChild(templateCenterStyle4.content.cloneNode(true));
+            createGrid(16);
+            init(4);
+            ecouteurChangeSize();
         }
         else if (button_reset.getAttribute("name") == "snake"){
             query_selector_left(".card-main-left").innerHTML = "";
@@ -103,4 +138,4 @@ function button_reset(bool) {
     });
 }
 
-export { button_nav_bar, button_reset, gestionnaire };
+export { button_nav_bar, button_reset, gestionnaire, createGrid };

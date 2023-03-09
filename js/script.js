@@ -6,11 +6,13 @@ import { MainComponentCenter } from './components/main.component.center.js';
 import { MainComponentRight } from './components/main.component.right.js';
 import { FooterComponent } from './components/footer.component.js';
 import { PossibilitiesComponent } from './components/possibilities.component.js';
-import { gestionnaire } from './utils/gestionnaire.js';
+import { gestionnaire, createGrid } from './utils/gestionnaire.js';
 import { initCanvas } from "../Snake/js/script.js";
 import { init } from "../2048/js/script.js";
+import { ecouteurChangeSize } from "../2048/js/ecouteurs.js";
 import { templateCenter } from "./template/2048.template.js";
 import { query_selector_left, query_selector_root, query_selector_footer, query_selector_right } from './components/request.queryselector.js';
+import { templateCenterStyle4 } from './template/2048.template.style4.js';
 
 window.onload = initialise;
 
@@ -76,7 +78,10 @@ function miseEnPlace(root, template, name, bool) {
 	else {
 		let shadow_root = gestionnaire("2048", bool);
 		shadow_root.appendChild(templateCenter.content.cloneNode(true));
-		init();
+		shadow_root.appendChild(templateCenterStyle4.content.cloneNode(true));
+		createGrid(16);
+		init(4);
+    	ecouteurChangeSize();
 	}
 	query_selector_footer("[id='reset']").setAttribute("name", name);
 }

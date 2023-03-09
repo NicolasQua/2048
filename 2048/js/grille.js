@@ -29,16 +29,15 @@ export default class Grille {
         });
         let l;
         let c;
-
         ecouteursClavier(l, c);
         lose = this.checkLose();
     }
 
 
     initTuiles() {
-        this.tabTuiles = create2DArray(4);
-        for (let l = 0; l < 4; l++) {
-            for (let c = 0; c < 4; c++) {
+        this.tabTuiles = create2DArray(this.l);
+        for (let l = 0; l < this.l; l++) {
+            for (let c = 0; c < this.c; c++) {
                 let tmp = Math.random(); 
                 let val = 0;
                 if (tmp > 0.9) {
@@ -63,10 +62,10 @@ export default class Grille {
 
     updateAffichage() {
         let max = 255;
-        for (let l = 0; l < 4; l++) {
-            for (let c = 0; c < 4; c++) {
+        for (let l = 0; l < this.l; l++) {
+            for (let c = 0; c < this.c; c++) {
                 let tuile = this.tabTuiles[l][c].val;
-                let index = (l * 4) + c;
+                let index = (l * this.l) + c;
                 let selector = `[id='${index}']`;
                 if (tuile != 0) {
                     query_selector_center(selector).innerHTML = tuile;
@@ -88,15 +87,15 @@ export default class Grille {
 
     
     afficheTab () {
-        for (let l = 0; l < 4; l++) {
+        for (let l = 0; l < this.l; l++) {
             console.log(this.tabTuiles[l][0].val + " " +this.tabTuiles[l][1].val + " "+ this.tabTuiles[l][2].val + " " + this.tabTuiles[l][3].val);
         }
     }
 
 
       tabPlein() {
-        for (let l = 0; l < 4; l++) {
-            for (let c = 0; c < 4; c++) {
+        for (let l = 0; l < this.l; l++) {
+            for (let c = 0; c < this.c; c++) {
                 if (this.tabTuiles[l][c].val == 0) {
                     return false;
                 }

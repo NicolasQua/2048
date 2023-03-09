@@ -1,4 +1,4 @@
-import {genereTuile} from "./utils.js";
+import {changeSize, genereTuile} from "./utils.js";
 import { query_selector_left } from "../../js/components/request.queryselector.js";
 
 let depl = [0, 0];
@@ -54,4 +54,31 @@ function ecouteursButtons (grille){
     }
 }
 
-export {ecouteursClavier, depl, ecouteursButtons};
+function ecouteurChangeSize() {
+    let button_plus = query_selector_left("[id='plus']");
+    if (button_plus === null)
+        return;
+    button_plus.addEventListener("click", function() {
+        let size = parseInt(query_selector_left("#row").innerHTML);
+        if (size < 8){
+            size += 1;
+            query_selector_left("#row").innerHTML = size;
+            query_selector_left("#col").innerHTML = size;
+            changeSize(size);
+        }
+    });
+    let button_moins = query_selector_left("[id='moins']");
+    if (button_moins === null)
+        return;
+    button_moins.addEventListener("click", function() {
+        let size = parseInt(query_selector_left("#row").innerHTML);
+        if (size > 4){
+            size -= 1;
+            query_selector_left("#row").innerHTML = size;
+            query_selector_left("#col").innerHTML = size;
+            changeSize(size);
+        }
+    });
+}
+
+export { ecouteursClavier, depl, ecouteursButtons, ecouteurChangeSize };
