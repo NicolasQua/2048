@@ -60,7 +60,7 @@ function ecouteurChangeSize() {
         return;
     button_plus.addEventListener("click", function() {
         let size = parseInt(query_selector_left("#row").innerHTML);
-        if (size < 8){
+        if (size < 7){
             size += 1;
             query_selector_left("#row").innerHTML = size;
             query_selector_left("#col").innerHTML = size;

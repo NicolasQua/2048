@@ -20,7 +20,7 @@ export class Fonctionalities {
     }
 
     static lose(){
-        let center = query_selector_center('#grille');
+        let center = query_selector_center('#grilles');
         let canvas = document.createElement('canvas');
 
         canvas.width = center.offsetWidth - 5; 
